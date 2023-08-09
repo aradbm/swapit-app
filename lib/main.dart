@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/tabs_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => runApp(const App()));
   runApp(const App());
 }
 
