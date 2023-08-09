@@ -1,0 +1,105 @@
+{
+    "categories": [
+      {
+        "id": "C001",
+        "name": "Clothing",
+        "image_url": "",
+        "subcategories": [
+          {
+            "id": "C00101",
+            "name": "Men's Clothing",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0010101", "name": "T-Shirts", "image_url": ""},
+              {"id": "C0010102", "name": "Jeans", "image_url": ""},
+              {"id": "C0010103", "name": "Suits", "image_url": ""},
+              {"id": "C0010104", "name": "Outerwear", "image_url": ""},
+              {"id": "C0010105", "name": "Underwear", "image_url": ""}
+            ]
+          },
+          {
+            "id": "C00102",
+            "name": "Women's Clothing",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0010201", "name": "Dresses", "image_url": ""},
+              {"id": "C0010202", "name": "Blouses & Shirts", "image_url": ""},
+              {"id": "C0010203", "name": "Skirts", "image_url": ""},
+              {"id": "C0010204", "name": "Pants", "image_url": ""},
+              {"id": "C0010205", "name": "Lingerie", "image_url": ""}
+            ]
+          },
+          {
+            "id": "C00103",
+            "name": "Children's Clothing",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0010301", "name": "Tops", "image_url": ""},
+              {"id": "C0010302", "name": "Bottoms", "image_url": ""},
+              {"id": "C0010303", "name": "Dresses", "image_url": ""},
+              {"id": "C0010304", "name": "School Uniforms", "image_url": ""}
+            ]
+          }
+        ]
+      },
+      {
+        "id": "C002",
+        "name": "Accessories",
+        "image_url": "",
+        "subcategories": [
+          {
+            "id": "C00201",
+            "name": "Bags & Purses",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0020101", "name": "Handbags", "image_url": ""},
+              {"id": "C0020102", "name": "Wallets", "image_url": ""},
+              {"id": "C0020103", "name": "Backpacks", "image_url": ""}
+            ]
+          },
+          {
+            "id": "C00202",
+            "name": "Jewelry",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0020201", "name": "Necklaces", "image_url": ""},
+              {"id": "C0020202", "name": "Rings", "image_url": ""},
+              {"id": "C0020203", "name": "Earrings", "image_url": ""},
+              {"id": "C0020204", "name": "Bracelets", "image_url": ""}
+            ]
+          },
+          {
+            "id": "C00203",
+            "name": "Hats & Caps",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0020301", "name": "Baseball Caps", "image_url": ""},
+              {"id": "C0020302", "name": "Beanies", "image_url": ""},
+              {"id": "C0020303", "name": "Sun Hats", "image_url": ""}
+            ]
+          },
+          {
+            "id": "C00204",
+            "name": "Scarves & Wraps",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0020401", "name": "Winter Scarves", "image_url": ""},
+              {"id": "C0020402", "name": "Light Scarves", "image_url": ""},
+              {"id": "C0020403", "name": "Shawls", "image_url": ""}
+            ]
+          },
+          {
+            "id": "C00205",
+            "name": "Sunglasses & Eyewear",
+            "image_url": "",
+            "subcategories": [
+              {"id": "C0020501", "name": "Sunglasses", "image_url": ""},
+              {"id": "C0020502", "name": "Prescription Glasses", "image_url": ""},
+              {"id": "C0020503", "name": "Contact Lenses", "image_url": ""}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

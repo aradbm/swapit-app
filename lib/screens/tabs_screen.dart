@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/chat_screen.dart';
-import 'package:swapit_app/screens/items_screen.dart';
 import 'package:swapit_app/screens/marketplace_screen.dart';
 import 'package:swapit_app/screens/profile_screen.dart';
 import 'package:swapit_app/screens/swap_screen.dart';
+
+import 'item_screens/add_wl_screen.dart';
+import 'item_screens/items_screen.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -80,7 +82,11 @@ class _TabsScreenState extends State<TabsScreen> {
         child: activePage,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const AddWishListItem(),
+          ));
+        },
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/screens/backpack_screen.dart';
-import 'package:swapit_app/screens/wishlist_screen.dart';
+import 'package:swapit_app/screens/item_screens/wishlist_screen.dart';
+
+import 'backpack_screen.dart';
 
 class MyItemsScreen extends StatefulWidget {
   const MyItemsScreen({super.key});
@@ -29,20 +30,12 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
         appBar: TabBar(
           tabs: myTabs,
         ),
-        body: const TabBarView(children: [
-          BackPackScrreen(),
-          WishListScrreen(),
-        ]
-            // myTabs.map((Tab tab) {
-            //   final String? label = tab.text?.toLowerCase();
-            //   return Center(
-            //     child: Text(
-            //       'This is the $label tab',
-            //       style: const TextStyle(fontSize: 36),
-            //     ),
-            //   );
-            // }).toList(),
-            ),
+        body: const TabBarView(
+          children: [
+            BackPackScrreen(),
+            WishListScrreen(),
+          ],
+        ),
       ),
     );
   }

@@ -1,27 +1,20 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
-enum Categories {
-  jeans,
-  shirt,
-  shoes,
-  accessories,
-}
-
 class WishListItem {
-  const WishListItem({
-    required this.desc,
-    required this.color,
-    required this.lowPrice,
-    required this.highPrice,
-    required this.image,
+  const WishListItem(
+    this.color,
+    this.size,
+    this.lowPrice,
+    this.highPrice,
+    this.image, {
+    required this.userID,
     required this.category,
   });
 
-  final Category category;
-  final String desc;
+  final String userID;
+  final String category;
   final Color color;
+  final String size;
   final int lowPrice;
   final int highPrice;
   final String image;

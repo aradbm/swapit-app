@@ -1,27 +1,18 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import 'location.dart';
 
-enum Categories {
-  jeans,
-  shirt,
-  shoes,
-  accessories,
-}
-
-
-
 class BackPackItem {
-  const BackPackItem({
+  const BackPackItem(
+    this.desc,
+    this.color,
+    this.image, {
     required this.id,
     required this.name,
-    required this.desc,
-    required this.color,
     required this.price,
-    required this.image,
     required this.location,
+    required this.category,
+    required this.userID,
   });
 
   final String id;
@@ -31,4 +22,6 @@ class BackPackItem {
   final int price;
   final File image;
   final Location location;
+  final String category;
+  final String userID;
 }

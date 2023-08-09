@@ -11,7 +11,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('Swap it!'),
+      child: Text('its the market place yooo!'),
     );
   }
 }
