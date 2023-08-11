@@ -40,7 +40,7 @@ const List<WishListItem> dummyWishlistItems = [
     category: "Outerwear",
   ),
   WishListItem(
-    Colors.black,
+    Colors.amber,
     "Large",
     3000,
     4000,

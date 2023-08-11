@@ -9,9 +9,6 @@ class AddWishListItem extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Add Wish List Item'),
       ),
-      body: const Center(
-        child: Text('Add Wish List Item'),
-      ),
     );
   }
 }

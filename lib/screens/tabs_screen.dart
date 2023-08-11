@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/chat_screen.dart';
 import 'package:swapit_app/screens/marketplace_screen.dart';
 import 'package:swapit_app/screens/profile_screen.dart';
-import 'package:swapit_app/screens/swap_screen.dart';
-
-import 'item_screens/add_wl_screen.dart';
+import 'package:swapit_app/screens/swap_screens/swap_screen.dart';
 import 'item_screens/items_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -81,22 +79,14 @@ class _TabsScreenState extends State<TabsScreen> {
       body: SafeArea(
         child: activePage,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const AddWishListItem(),
-          ));
-        },
-        shape: const CircleBorder(),
-        child: const Icon(Icons.add),
-      ),
+
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
         currentIndex: _selectedPageIndex,
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat_outlined),
+            icon: Icon(Icons.backpack_outlined),
             label: 'Items',
           ),
           BottomNavigationBarItem(

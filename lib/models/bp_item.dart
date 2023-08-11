@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'location.dart';
 
@@ -20,7 +19,7 @@ class BackPackItem {
   final String desc;
   final Color color;
   final int price;
-  final File image;
+  final String image;
   final Location location;
   final String category;
   final String userID;
