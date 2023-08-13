@@ -21,8 +21,11 @@ class App extends StatelessWidget {
       theme: ThemeData().copyWith(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 18, 160, 255)),
+          seedColor: const Color.fromARGB(255, 42, 46, 49),
+        ),
       ),
+
+      // theme: ThemeData(brightness: Brightness.light),
       home: const TabsScreen(),
     );
   }
