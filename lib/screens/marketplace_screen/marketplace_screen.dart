@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/widgets/marketplace_tile.dart';
+import 'package:swapit_app/screens/marketplace_screen/widgets/market_drawer.dart';
+import 'package:swapit_app/screens/marketplace_screen/widgets/marketplace_tile.dart';
 
-import '../data/user1_bp.dart';
-import '../models/bp_item.dart';
+import '../../data/user1_bp.dart';
+import '../../models/bp_item.dart';
 
 class MarketPlaceScreen extends StatefulWidget {
   const MarketPlaceScreen({super.key});
@@ -17,29 +18,25 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const MarketDrawer(),
       appBar: AppBar(
         title: const Text('MarketPlace'),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.person,
+        actions: const [
+          SizedBox(
+            height: 40,
+            width: 170,
+            child: TextField(
+              style: TextStyle(fontSize: 16),
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(2.0),
+                prefixIcon: Icon(Icons.search),
+                hintText: 'Search for item',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                ),
+              ),
             ),
-            style: ButtonStyle(
-              alignment: Alignment.center,
-              iconColor: MaterialStateProperty.all(Colors.black),
-              backgroundColor: MaterialStateProperty.all(Colors.grey),
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            style: ButtonStyle(
-              alignment: Alignment.center,
-              iconColor: MaterialStateProperty.all(Colors.black),
-              backgroundColor: MaterialStateProperty.all(Colors.grey),
-            ),
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
+          )
         ],
       ),
       body: Column(children: [
@@ -91,7 +88,8 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
           child: GridView.builder(
             itemCount: ls.length,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 400,
+              maxCrossAxisExtent: 300,
+              childAspectRatio: 0.9,
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
             ),

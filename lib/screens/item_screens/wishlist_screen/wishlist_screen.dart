@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/data/user1_wl.dart';
 import 'package:swapit_app/models/wl_item.dart';
-import 'package:swapit_app/widgets/wishlist_tile.dart';
+import 'package:swapit_app/screens/item_screens/wishlist_screen/wishlist_tile.dart';
 
 class WishListScrreen extends StatefulWidget {
   const WishListScrreen({super.key});

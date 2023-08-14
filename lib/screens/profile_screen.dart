@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -7,47 +8,49 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String userName = "John Doe"; // Sample username
   final TextEditingController _controller = TextEditingController();
 
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   void initState() {
     super.initState();
-    _controller.text = userName;
+    _controller.text = user.displayName ?? '';
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hi! $userName'),
+        title: Text('Hi! ${user.displayName ?? ''}'),
         actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
           IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const Icon(Icons.logout),
             onPressed: () {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text('Edit Name'),
-                  content: TextField(
-                    controller: _controller,
-                  ),
+                  title: const Text('Logout'),
+                  content: const Text('Are you sure you want to logout?'),
                   actions: [
                     TextButton(
                       onPressed: () {
-                        setState(() {
-                          userName = _controller.text;
-                        });
                         Navigator.pop(context);
                       },
-                      child: const Text('Save'),
+                      child: const Text('No'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        FirebaseAuth.instance.signOut();
+                      },
+                      child: const Text('Yes'),
                     ),
                   ],
                 ),
               );
             },
           ),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
         ],
       ),
       body: Column(
@@ -83,17 +86,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Theme.of(context).primaryColor,
-                          // backgroundImage: AssetImage(
-                          //     'path_to_your_default_image.png'),
-                          child: const Icon(Icons.person,
-                              size: 70), // replace with your own image
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(user.photoURL ?? '')),
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Name: $userName'),
-                      ),
+                      Text('Email: ${user.email}'),
+                      const SizedBox(height: 10),
+                      Text('Name: ${user.displayName ?? ''}'),
+                      const SizedBox(height: 10),
+                      Text('Uid: ${user.uid}'),
                       const Spacer(),
                     ],
                   ),

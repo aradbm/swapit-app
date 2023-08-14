@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/models/bp_item.dart';
+import 'package:swapit_app/screens/item_screens/backpack_screen/edit_backpack_item.dart';
 
 class BackPackTile extends StatelessWidget {
   const BackPackTile({super.key, required this.item});
@@ -9,7 +10,12 @@ class BackPackTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('tapped');
+        print('tapped item ${item.name}');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => EditBackPackItem(item: item),
+          ),
+        );
       },
       child: Container(
         height: 400,
@@ -32,11 +38,14 @@ class BackPackTile extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
-                    child: Image(
-                      image: AssetImage(item.image),
-                      fit: BoxFit.cover,
-                      height: 200,
-                      width: 200,
+                    child: Hero(
+                      tag: item.id,
+                      child: Image(
+                        image: AssetImage(item.image),
+                        fit: BoxFit.cover,
+                        height: 200,
+                        width: 200,
+                      ),
                     ),
                   ),
                   Positioned(

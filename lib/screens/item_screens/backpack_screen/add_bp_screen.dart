@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../widgets/image_picker.dart';
+import 'image_picker.dart';
 
 class AddBackPackItem extends StatelessWidget {
   const AddBackPackItem({super.key});

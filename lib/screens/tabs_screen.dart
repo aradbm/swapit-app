@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/chat_screen.dart';
-import 'package:swapit_app/screens/marketplace_screen.dart';
+import 'package:swapit_app/screens/marketplace_screen/marketplace_screen.dart';
 import 'package:swapit_app/screens/profile_screen.dart';
 import 'package:swapit_app/screens/swap_screens/swap_screen.dart';
 import 'item_screens/items_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/models/bp_item.dart';
 import 'package:swapit_app/data/user1_bp.dart';
-import 'package:swapit_app/widgets/backpack_tile.dart';
+import 'package:swapit_app/screens/item_screens/backpack_screen/backpack_tile.dart';
 
 class BackPackScrreen extends StatefulWidget {
   const BackPackScrreen({super.key});

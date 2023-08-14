@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "/Users/aradbm/Desktop/Swapit/swapit_app/linux"
+  "cmake.sourceDirectory": "/Users/aradbm/Desktop/Swapit/swapit_app/linux",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/screens/item_screens/add_bp_screen.dart';
-import 'package:swapit_app/screens/item_screens/add_wl_screen.dart';
-import 'package:swapit_app/screens/item_screens/wishlist_screen.dart';
+import 'package:swapit_app/screens/item_screens/backpack_screen/add_bp_screen.dart';
+import 'package:swapit_app/screens/item_screens/wishlist_screen/add_wl_screen.dart';
+import 'package:swapit_app/screens/item_screens/wishlist_screen/wishlist_screen.dart';
 
-import 'backpack_screen.dart';
+import 'backpack_screen/backpack_screen.dart';
 
 class MyItemsScreen extends StatefulWidget {
   const MyItemsScreen({super.key});
