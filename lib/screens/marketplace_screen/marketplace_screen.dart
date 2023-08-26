@@ -24,7 +24,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
         actions: const [
           SizedBox(
             height: 40,
-            width: 170,
+            width: 230,
             child: TextField(
               style: TextStyle(fontSize: 16),
               decoration: InputDecoration(
@@ -41,7 +41,7 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
       ),
       body: Column(children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(width: 10),
             const Text('Filter by:'),

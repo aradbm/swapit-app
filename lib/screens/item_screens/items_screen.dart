@@ -42,10 +42,15 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                   ),
                 );
               },
-              child: const Icon(Icons.add),
+              backgroundColor: Colors.purpleAccent,
+              child: const Icon(
+                Icons.add,
+                size: 40,
+                color: Colors.white,
+              ),
             ),
             const SizedBox(
-              height: 3,
+              height: 5,
             ),
             FloatingActionButton(
               onPressed: () {
@@ -56,7 +61,7 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                   ),
                 );
               },
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.pinkAccent,
               child: const Icon(
                 Icons.add_shopping_cart_sharp,
                 size: 40,

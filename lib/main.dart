@@ -30,6 +30,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Swapit',
       theme: theme,
+      darkTheme: darkTheme,
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, userSnapshot) {

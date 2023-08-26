@@ -25,9 +25,6 @@ class _BackPackScrreenState extends State<BackPackScrreen> {
         ),
         children: [
           ...ls.map((e) => BackPackTile(item: e)),
-          ...ls.map((e) => BackPackTile(item: e)),
-          ...ls.map((e) => BackPackTile(item: e)),
-          ...ls.map((e) => BackPackTile(item: e)),
         ],
       ),
     );

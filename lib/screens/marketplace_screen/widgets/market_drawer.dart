@@ -6,6 +6,7 @@ class MarketDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      width: 200,
       child: ListView(
         children: [
           DrawerHeader(
