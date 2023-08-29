@@ -1,9 +1,14 @@
 import 'dart:math';
 
 class Location {
-  const Location({required this.latitude, required this.longitude});
+  const Location({
+    required this.latitude,
+    required this.longitude,
+    this.name = 'user location',
+  });
   final double latitude;
   final double longitude;
+  final String name;
 
   double distanceTo(Location other) {
     // returns distance in km

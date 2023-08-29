@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/models/bp_item.dart';
+import 'package:swapit_app/models/backpack_item.dart';
 import 'package:swapit_app/screens/item_screens/backpack_screen/edit_backpack_item.dart';
 
 class BackPackTile extends StatelessWidget {

@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/data/user1_wl.dart';
-import 'package:swapit_app/models/wl_item.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/screens/item_screens/wishlist_screen/wishlist_tile.dart';
 
-class WishListScrreen extends StatefulWidget {
+import '../../../providers/wishlist_provider.dart';
+
+class WishListScrreen extends ConsumerStatefulWidget {
   const WishListScrreen({super.key});
 
   @override
-  State<WishListScrreen> createState() => _WishListScrreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _WishListScrreenState();
 }
 
-class _WishListScrreenState extends State<WishListScrreen> {
-  List<WishListItem> ls = dummyWishlistItems;
+class _WishListScrreenState extends ConsumerState<WishListScrreen> {
   @override
   Widget build(BuildContext context) {
+    var wishlist = ref.watch(wishListProvider).wishList;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-          ...ls.map((e) => WishListTile(item: e)),
-          ...ls.map((e) => WishListTile(item: e)),
-          ...ls.map((e) => WishListTile(item: e)),
+          ...wishlist.map((e) => WishListTile(item: e)),
         ],
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../providers/theme_provider.dart';
+import 'package:swapit_app/utilities/shared_pref.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -10,7 +10,6 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     final themeProvider = ref.watch(themeProviderNotifier);
@@ -32,10 +31,17 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 value: themeProvider.isDarkMode(),
                 onChanged: (value) {
                   themeProvider.toggleTheme(value);
+                  SharedPrefs.setBool('isDarkMode', value);
                 },
               ),
             ],
           ),
+          ElevatedButton(
+            onPressed: () {
+              print(SharedPrefs.getBool('isDarkMode').toString());
+            },
+            child: const Text('print shared pref'),
+          )
         ],
       ),
     );

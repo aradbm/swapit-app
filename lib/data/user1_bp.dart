@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/bp_item.dart';
+import '../models/backpack_item.dart';
 import '../models/location.dart';
 
 List<BackPackItem> dummyBackpackItems = [

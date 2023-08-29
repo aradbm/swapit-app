@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: const TextStyle(color: Colors.black),
         ),
         leading: Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding: const EdgeInsets.all(6.0),
           child: profileAvatar,
         ),
         toolbarHeight: 70,

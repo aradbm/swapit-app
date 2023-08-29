@@ -3,7 +3,7 @@ import 'package:swapit_app/screens/marketplace_screen/widgets/market_drawer.dart
 import 'package:swapit_app/screens/marketplace_screen/widgets/marketplace_tile.dart';
 
 import '../../data/user1_bp.dart';
-import '../../models/bp_item.dart';
+import '../../models/backpack_item.dart';
 
 class MarketPlaceScreen extends StatefulWidget {
   const MarketPlaceScreen({super.key});

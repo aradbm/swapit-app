@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/models/bp_item.dart';
+import 'package:swapit_app/models/backpack_item.dart';
 
 class ItemTile extends StatelessWidget {
   const ItemTile({super.key, required this.item});

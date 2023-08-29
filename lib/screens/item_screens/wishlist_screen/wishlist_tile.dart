@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/models/wl_item.dart';
+import 'package:swapit_app/models/wishlist_item.dart';
 
 class WishListTile extends StatelessWidget {
   const WishListTile({super.key, required this.item});
@@ -37,7 +37,7 @@ class WishListTile extends StatelessWidget {
               highlightColor: item.color,
             ),
             const SizedBox(width: 50),
-            Text(item.category),
+            Text(item.categoryID),
           ],
         ),
       ),
