@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/screens/item_screens/wishlist_screen/wishlist_form.dart';
+import 'package:swapit_app/screens/item_screens/wishlist_screen/components/wishlist_form.dart';
 
 class AddWishListItem extends StatelessWidget {
   const AddWishListItem({super.key});

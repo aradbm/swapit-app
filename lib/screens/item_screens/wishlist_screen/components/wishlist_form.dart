@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../models/wishlist_item.dart';
-import '../../../providers/wishlist_provider.dart';
-import 'text_form_container.dart';
+import '../../../../models/wishlist_item.dart';
+import '../../../../providers/wishlist_provider.dart';
+import '../text_form_container.dart';
 
 class WishListForm extends ConsumerStatefulWidget {
   const WishListForm({super.key});

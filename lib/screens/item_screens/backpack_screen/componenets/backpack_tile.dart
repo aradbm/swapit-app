@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/models/backpack_item.dart';
-import 'package:swapit_app/screens/item_screens/backpack_screen/edit_backpack_item.dart';
+import 'package:swapit_app/screens/item_screens/backpack_screen/add_bp_screen.dart';
 
 class BackPackTile extends StatelessWidget {
   const BackPackTile({super.key, required this.item});
@@ -13,7 +13,7 @@ class BackPackTile extends StatelessWidget {
         print('tapped item ${item.name}');
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (ctx) => EditBackPackItem(item: item),
+            builder: (ctx) => AddBackPackItem(item: item),
           ),
         );
       },
@@ -39,7 +39,7 @@ class BackPackTile extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
                     child: Hero(
-                      tag: item.id,
+                      tag: item,
                       child: Image(
                         image: AssetImage(item.image),
                         fit: BoxFit.cover,

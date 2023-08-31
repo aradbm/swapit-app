@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swapit_app/screens/item_screens/backpack_screen/componenets/category_picker.dart';
 import 'package:swapit_app/screens/marketplace_screen/widgets/market_drawer.dart';
 import 'package:swapit_app/screens/marketplace_screen/widgets/marketplace_tile.dart';
 
 import '../../data/user1_bp.dart';
 import '../../models/backpack_item.dart';
+import '../../models/category.dart';
+import '../../providers/categories_provider.dart';
 
-class MarketPlaceScreen extends StatefulWidget {
+class MarketPlaceScreen extends ConsumerStatefulWidget {
   const MarketPlaceScreen({super.key});
 
   @override
-  State<MarketPlaceScreen> createState() => _MarketPlaceScreenState();
+  ConsumerState<MarketPlaceScreen> createState() => _MarketPlaceScreenState();
 }
 
-class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
+class _MarketPlaceScreenState extends ConsumerState<MarketPlaceScreen> {
   List<BackPackItem> ls = dummyBackpackItems;
 
   @override
   Widget build(BuildContext context) {
+    AsyncValue<List<ItemCategory>> categories = ref.watch(categoriesProvider);
     return Scaffold(
       drawer: const MarketDrawer(),
       appBar: AppBar(
@@ -40,58 +45,16 @@ class _MarketPlaceScreenState extends State<MarketPlaceScreen> {
         ],
       ),
       body: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(width: 10),
-            const Text('Filter by:'),
-            const Spacer(),
-            TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.lightBlueAccent),
-              ),
-              child: const Text('Shoes'),
-            ),
-            TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.lightBlueAccent),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
-              ),
-              child: const Text('Clothes'),
-            ),
-            TextButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.black),
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.lightBlueAccent),
-              ),
-              child: const Text('Electronics'),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text('See All'),
-            ),
-          ],
-        ),
+        CategoriesPicker(categories: categories),
+        const SizedBox(height: 10),
         Expanded(
           child: GridView.builder(
             itemCount: ls.length,
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 300,
               childAspectRatio: 0.9,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              crossAxisSpacing: 15,
+              mainAxisSpacing: 7,
             ),
             itemBuilder: (context, index) => ItemTile(item: ls[index]),
           ),

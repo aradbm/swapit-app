@@ -39,19 +39,25 @@ class _ChatScreenState extends State<ChatScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              height: 80, // You can adjust this based on your design needs
+              height: 100,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: newChats.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Column(
                       children: [
-                        CircleAvatar(
-                          // Add your image or a placeholder here
-                          child: Text(newChats[index]
-                              [0]), // Displays first letter of the name
+                        SizedBox(
+                          height: 60,
+                          width: 60,
+                          child: CircleAvatar(
+                            // Add your image or a placeholder here
+                            child: Text(
+                              newChats[index][0],
+                              style: const TextStyle(fontSize: 30),
+                            ), // Displays first letter of the name
+                          ),
                         ),
                         Text(newChats[index]),
                       ],

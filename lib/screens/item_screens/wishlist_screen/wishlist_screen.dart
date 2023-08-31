@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swapit_app/screens/item_screens/wishlist_screen/wishlist_tile.dart';
 
 import '../../../providers/wishlist_provider.dart';
+import 'components/wishlist_tile.dart';
 
 class WishListScrreen extends ConsumerStatefulWidget {
   const WishListScrreen({super.key});
