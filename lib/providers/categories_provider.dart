@@ -7,10 +7,9 @@ import '../services/api.dart';
 
 final categoriesProvider = FutureProvider<List<ItemCategory>>((ref) async {
   final response = await Api.getCategories();
-  final categories = json.decode(response);
-
-  return compute(parseCategories, categories);
+  return compute(parseCategories, json.decode(response));
 });
+
 FutureOr<List<ItemCategory>> parseCategories(message) {
   final parsed = message.cast<Map<String, dynamic>>();
   return parsed

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/chat_screen.dart';
 import 'package:swapit_app/screens/marketplace_screen/marketplace_screen.dart';
-import 'package:swapit_app/screens/item_screens/profile_screen.dart';
+import 'package:swapit_app/screens/profile_screen/profile_bar.dart';
 import 'package:swapit_app/screens/swap_screens/swap_screen.dart';
 
 class TabsScreen extends StatefulWidget {

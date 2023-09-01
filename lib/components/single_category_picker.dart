@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../models/category.dart';
+import '../models/category.dart';
 
-class CategoriesPicker extends StatelessWidget {
-  const CategoriesPicker({
+class SingleCategoriesPicker extends StatefulWidget {
+  const SingleCategoriesPicker({
     super.key,
     required this.categories,
+    required this.onChanged,
+    this.parentID = 0,
   });
-
+  final Function(ItemCategory?) onChanged;
+  final int parentID;
   final AsyncValue<List<ItemCategory>> categories;
+
+  @override
+  State<SingleCategoriesPicker> createState() => _SingleCategoriesPickerState();
+}
+
+class _SingleCategoriesPickerState extends State<SingleCategoriesPicker> {
+  ItemCategory? _itemCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +31,7 @@ class CategoriesPicker extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: DropdownButton<ItemCategory>(
+        value: _itemCategory,
         hint: const Text('Select Category'),
         isExpanded: true,
         icon: const Icon(Icons.arrow_drop_down),
@@ -32,10 +43,9 @@ class CategoriesPicker extends StatelessWidget {
           height: 2,
           color: Colors.deepPurpleAccent,
         ),
-        items: categories.when(
+        items: widget.categories.when(
           data: (value) => value
-              .where((element) =>
-                  element.categoryID != 1 && element.categoryID != 2)
+              .where((element) => element.parentID == widget.parentID)
               .map(
                 (category) => DropdownMenuItem<ItemCategory>(
                   value: category,
@@ -56,7 +66,15 @@ class CategoriesPicker extends StatelessWidget {
             ),
           ],
         ),
-        onChanged: (ItemCategory? category) {},
+        onChanged: (ItemCategory? category) {
+          widget.onChanged(category);
+          // change the value of the selected category
+
+          setState(() {
+            _itemCategory = category;
+            widget.onChanged(category);
+          });
+        },
       ),
     );
   }

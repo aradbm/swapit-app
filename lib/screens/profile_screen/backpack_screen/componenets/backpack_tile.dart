@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/models/backpack_item.dart';
-import 'package:swapit_app/screens/item_screens/backpack_screen/add_bp_screen.dart';
+import 'package:swapit_app/screens/profile_screen/backpack_screen/add_bp_screen.dart';
 
 class BackPackTile extends StatelessWidget {
   const BackPackTile({super.key, required this.item});

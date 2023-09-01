@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swapit_app/components/category_picker.dart';
 import 'package:swapit_app/models/backpack_item.dart';
 import 'package:swapit_app/data/user1_bp.dart';
 import 'package:swapit_app/models/category.dart';
-import 'package:swapit_app/screens/item_screens/backpack_screen/componenets/backpack_tile.dart';
-
-import '../../../providers/categories_provider.dart';
-import 'componenets/category_picker.dart';
+import 'package:swapit_app/screens/profile_screen/backpack_screen/componenets/backpack_tile.dart';
 
 class BackPackScrreen extends ConsumerStatefulWidget {
   const BackPackScrreen({super.key});
@@ -17,16 +15,28 @@ class BackPackScrreen extends ConsumerStatefulWidget {
 }
 
 class _BackPackScrreenState extends ConsumerState<BackPackScrreen> {
+  void _onChanged(ItemCategory? value) {
+    setState(() {
+      _category = value;
+    });
+  }
+
   List<BackPackItem> ls = dummyBackpackItems;
+  ItemCategory? _category;
   @override
   Widget build(BuildContext context) {
-    AsyncValue<List<ItemCategory>> categories = ref.watch(categoriesProvider);
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Column(
         children: [
+          CategoryPicker(onChanged: _onChanged),
           const SizedBox(height: 10),
-          CategoriesPicker(categories: categories),
+          _category == null
+              ? const SizedBox()
+              : Text(
+                  'Selected Category: ${_category!.name}',
+                  style: const TextStyle(fontSize: 20),
+                ),
           const SizedBox(height: 10),
           Expanded(
             child: GridView(

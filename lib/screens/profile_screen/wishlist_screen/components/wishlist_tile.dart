@@ -27,7 +27,7 @@ class WishListTile extends StatelessWidget {
           children: [
             const SizedBox(width: 20),
             IconButton.filledTonal(
-              icon: const Icon(Icons.headset_outlined),
+              icon: item.getIcon,
               onPressed: () {},
               color: item.color,
               // splashColor: item.color,

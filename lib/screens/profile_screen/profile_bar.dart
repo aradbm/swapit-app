@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:swapit_app/screens/item_screens/items_screen.dart';
-import 'package:swapit_app/screens/item_screens/settings_screen.dart';
+import 'package:swapit_app/screens/profile_screen/items_screen.dart';
+import 'package:swapit_app/screens/profile_screen/settings_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swapit_app/screens/item_screens/backpack_screen/componenets/category_picker.dart';
+// import 'package:swapit_app/screens/profile_screen/backpack_screen/componenets/category_picker.dart';
 import 'package:swapit_app/screens/marketplace_screen/widgets/market_drawer.dart';
 import 'package:swapit_app/screens/marketplace_screen/widgets/marketplace_tile.dart';
 
 import '../../data/user1_bp.dart';
 import '../../models/backpack_item.dart';
-import '../../models/category.dart';
-import '../../providers/categories_provider.dart';
+// import '../../models/category.dart';
+// import '../../providers/categories_provider.dart';
 
 class MarketPlaceScreen extends ConsumerStatefulWidget {
   const MarketPlaceScreen({super.key});
@@ -21,7 +21,7 @@ class _MarketPlaceScreenState extends ConsumerState<MarketPlaceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AsyncValue<List<ItemCategory>> categories = ref.watch(categoriesProvider);
+    // AsyncValue<List<ItemCategory>> categories = ref.watch(categoriesProvider);
     return Scaffold(
       drawer: const MarketDrawer(),
       appBar: AppBar(
@@ -45,7 +45,7 @@ class _MarketPlaceScreenState extends ConsumerState<MarketPlaceScreen> {
         ],
       ),
       body: Column(children: [
-        CategoriesPicker(categories: categories),
+        // CategoriesPicker(categories: categories, onChanged: ,),
         const SizedBox(height: 10),
         Expanded(
           child: GridView.builder(
