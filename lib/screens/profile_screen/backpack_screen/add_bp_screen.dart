@@ -14,7 +14,7 @@ class AddBackPackItem extends ConsumerStatefulWidget {
 class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
   @override
   Widget build(BuildContext context) {
-    AsyncValue<User> loggedUser = ref.watch(userProvider);
+    AsyncValue<AppUser> loggedUser = ref.watch(userProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,14 +39,11 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                   borderRadius: BorderRadius.circular(30),
                   child: widget.item == null
                       ? const SizedBox()
-                      : Hero(
-                          tag: widget.item!.id,
-                          child: Image(
-                            image: AssetImage(widget.item!.image),
-                            fit: BoxFit.cover,
-                            height: 200,
-                            width: 200,
-                          ),
+                      : Image(
+                          image: AssetImage(widget.item!.image),
+                          fit: BoxFit.cover,
+                          height: 200,
+                          width: 200,
                         ),
                 ),
                 widget.item != null

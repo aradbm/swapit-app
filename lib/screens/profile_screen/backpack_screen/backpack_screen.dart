@@ -51,6 +51,10 @@ class _BackPackScrreenState extends ConsumerState<BackPackScrreen> {
               ],
             ),
           ),
+          Text(
+            'Total Items: ${ls.length}',
+            style: const TextStyle(fontSize: 20),
+          ),
         ],
       ),
     );

@@ -10,7 +10,6 @@ class BackPackTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('tapped item ${item.name}');
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (ctx) => AddBackPackItem(item: item),
@@ -38,14 +37,11 @@ class BackPackTile extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(30),
-                    child: Hero(
-                      tag: item,
-                      child: Image(
-                        image: AssetImage(item.image),
-                        fit: BoxFit.cover,
-                        height: 200,
-                        width: 200,
-                      ),
+                    child: Image(
+                      image: AssetImage(item.image),
+                      fit: BoxFit.cover,
+                      height: 200,
+                      width: 200,
                     ),
                   ),
                   Positioned(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/profile_screen/backpack_screen/add_bp_screen.dart';
-import 'package:swapit_app/screens/profile_screen/wishlist_screen/components/wishlist_form.dart';
+import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_form.dart';
 import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_screen.dart';
 
 import 'backpack_screen/backpack_screen.dart';
@@ -33,6 +33,7 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
+              heroTag: 'backpack',
               onPressed: () {
                 // push from bottom to top
                 Navigator.push(
@@ -53,6 +54,7 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
               height: 5,
             ),
             FloatingActionButton(
+              heroTag: 'wishlist',
               onPressed: () {
                 Navigator.push(
                   context,

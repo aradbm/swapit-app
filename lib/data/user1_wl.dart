@@ -5,7 +5,7 @@ const List<WishListItem> dummyWishlistItems = [
   WishListItem(
     itemID: "item1",
     userID: "user1",
-    categoryID: "1",
+    categoryID: 1,
     color: Colors.red,
     size: "Medium",
     minPrice: 2000,
@@ -15,7 +15,7 @@ const List<WishListItem> dummyWishlistItems = [
   WishListItem(
     itemID: "item2",
     userID: "user1",
-    categoryID: "2",
+    categoryID: 2,
     color: Colors.blue,
     size: "Large",
     minPrice: 1500,
@@ -25,7 +25,7 @@ const List<WishListItem> dummyWishlistItems = [
   WishListItem(
     itemID: "item3",
     userID: "user1",
-    categoryID: "3",
+    categoryID: 3,
     color: Colors.green,
     size: "Small",
     minPrice: 1000,
@@ -35,7 +35,7 @@ const List<WishListItem> dummyWishlistItems = [
   WishListItem(
     itemID: "item4",
     userID: "user1",
-    categoryID: "4",
+    categoryID: 4,
     color: Colors.brown,
     size: "Medium",
     minPrice: 5000,
@@ -45,7 +45,7 @@ const List<WishListItem> dummyWishlistItems = [
   WishListItem(
     itemID: "item5",
     userID: "user1",
-    categoryID: "14",
+    categoryID: 14,
     color: Colors.amber,
     size: "Large",
     minPrice: 3000,

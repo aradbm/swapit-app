@@ -36,12 +36,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ),
             ],
           ),
-          ElevatedButton(
-            onPressed: () {
-              print(SharedPrefs.getBool('isDarkMode').toString());
-            },
-            child: const Text('print shared pref'),
-          )
         ],
       ),
     );

@@ -1,11 +1,11 @@
-class User {
+class AppUser {
   final String uid;
   final String userName;
   final DateTime? lastLogin;
   final DateTime dateCreated;
   final String userStatus;
 
-  User(
+  AppUser(
     this.uid,
     this.userName,
     this.lastLogin,
@@ -13,7 +13,7 @@ class User {
     this.userStatus,
   );
 
-  User.fromMap(Map<String, dynamic> map)
+  AppUser.fromMap(Map<String, dynamic> map)
       : uid = map['uid'],
         userName = map['userName'],
         lastLogin = map['lastLogin'],
@@ -30,9 +30,9 @@ class User {
     };
   }
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory AppUser.fromJson(Map<String, dynamic> json) {
     // convert the date strings to DateTime objects
-    return User(
+    return AppUser(
       json['userid'].toString(),
       json['username'],
       DateTime.parse(json['lastlogin']),

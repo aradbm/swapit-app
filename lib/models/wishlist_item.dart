@@ -14,7 +14,7 @@ class WishListItem {
 
   final String itemID;
   final String userID;
-  final String categoryID;
+  final int categoryID;
   final Color color;
   final String? size;
   final int? minPrice;
@@ -23,14 +23,14 @@ class WishListItem {
 
   // to json and from json methods
   Map<String, dynamic> toJson() => {
-        'itemID': itemID,
-        'userID': userID,
-        'categoryID': categoryID,
-        'color': color.value,
-        'size': size,
-        'minPrice': minPrice,
-        'maxPrice': maxPrice,
-        'description': description,
+        'ItemID': itemID,
+        'UserID': userID,
+        'CategoryID': categoryID,
+        'Color': color.toString(),
+        'Size': size,
+        'MinPrice': minPrice,
+        'MaxPrice': maxPrice,
+        'Description': description,
       };
 
   factory WishListItem.fromJson(Map<String, dynamic> json) => WishListItem(
@@ -83,7 +83,7 @@ class WishListItem {
     //  36 | Bracelets           |             14
     //  37 | Earrings            |             14
 
-    switch (int.parse(categoryID)) {
+    switch ((categoryID)) {
       case 1:
         return const Icon(Icons.indeterminate_check_box);
       case 2:
@@ -104,4 +104,8 @@ class WishListItem {
         return const Icon(Icons.accessibility_new);
     }
   }
+
+  // to string method using to json method
+  @override
+  String toString() => toJson().toString();
 }

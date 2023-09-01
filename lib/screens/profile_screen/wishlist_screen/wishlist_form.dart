@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/components/category_picker.dart';
-import '../../../../models/wishlist_item.dart';
-import '../../../../providers/wishlist_provider.dart';
-import '../text_form_container.dart';
+import 'package:swapit_app/services/api.dart';
+import '../../../models/user.dart';
+import '../../../models/wishlist_item.dart';
+import '../../../providers/user_provider.dart';
+import '../../../providers/wishlist_provider.dart';
+import 'components/text_form_container.dart';
 
 class EditWishList extends ConsumerStatefulWidget {
   const EditWishList({super.key});
@@ -25,6 +28,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   @override
   Widget build(BuildContext context) {
     final wishlistProvider = ref.watch(wishListProvider);
+    final AsyncValue<AppUser> user = ref.watch(userProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -112,9 +116,13 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                   if (_formKey.currentState!.validate()) {
                     final item = WishListItem(
                       itemID: "item${wishlistProvider.wishList.length + 1}",
-                      userID: "user1",
+                      userID: user.when(
+                        data: (user) => user.uid,
+                        loading: () => '',
+                        error: (error, stackTrace) => '',
+                      ),
                       color: Colors.red,
-                      categoryID: _itemCategoryController.text,
+                      categoryID: int.parse(_itemCategoryController.text),
                       size: _itemSizeController.text == ''
                           ? 'small'
                           : _itemSizeController.text,
@@ -123,10 +131,15 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                       description: _itemDescriptionController.text,
                     );
 
+                    if (item.userID == '') {
+                      return;
+                      // show error
+                    }
+
                     wishlistProvider.addItem(item);
+                    Api.uploadWishList(item);
+
                     // clear text fields and pop screen
-                    _itemNameController.clear();
-                    _itemDescriptionController.clear();
                     Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -144,7 +157,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                   provider.removeItem(provider.wishList.first);
                   Navigator.pop(context);
                 },
-                child: const Text('Remove first item for fun'),
+                child: const Text('Remove first item for fun lol'),
               ),
             ],
           ),

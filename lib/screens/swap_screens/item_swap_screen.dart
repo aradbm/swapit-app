@@ -25,7 +25,7 @@ class _ItemsSwapState extends State<ItemsSwap> {
           backgroundCardsCount: 1,
           cardsCount: 20,
           onSwiping: (AppinioSwiperDirection direction) {
-            print(direction.index); // 1 - left, 2 - right
+            // print(direction.index); // 1 - left, 2 - right
           },
           cardsBuilder: (BuildContext context, int index) {
             return Container(

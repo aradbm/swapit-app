@@ -39,10 +39,10 @@ class _LoginPageState extends State<LoginPage> {
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        // show dialog with error
       }
       if (error.code == 'user-not-found') {
-        print('No user found for that email.');
+        // show dialog with error
       }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
