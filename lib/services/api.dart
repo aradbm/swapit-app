@@ -12,7 +12,7 @@ class Api {
   static Future<AppUser> getUser(String id) async {
     var url = Uri.parse("$BASE_URL/users/$id");
     var response = await http.get(url);
-    return Future.value(AppUser.fromJson(jsonDecode(response.body)));
+    return AppUser.fromJson(jsonDecode(response.body));
   }
 
   static getCategories() async {
@@ -21,10 +21,12 @@ class Api {
     return response.body;
   }
 
-  static getWishList(String id) async {
+  static Future<List<WishListItem>> getWishList(String id) async {
     var url = Uri.parse("$BASE_URL/wishlists/$id");
     var response = await http.get(url);
-    return response.body;
+    return Future.value((jsonDecode(response.body) as List)
+        .map((e) => WishListItem.fromJson(e))
+        .toList());
   }
 
   static uploadWishList(WishListItem item) async {

@@ -21,34 +21,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Widget profileAvatar = user.photoURL == null
-        ? const CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.white,
-            child: Icon(
-              Icons.person,
-              size: 50,
-              color: Colors.grey,
-            ),
-          )
-        : CircleAvatar(
+    final Widget profileAvatar;
+    if (user.photoURL == null) {
+      profileAvatar = const Padding(
+        padding: EdgeInsets.all(5.0),
+        child: CircleAvatar(
+          radius: 50,
+          backgroundColor: Colors.white,
+          child: Icon(Icons.person, size: 50, color: Colors.grey),
+        ),
+      );
+    } else {
+      profileAvatar = Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: CircleAvatar(
             radius: 50,
             backgroundColor: Theme.of(context).primaryColor,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: Image.network(user.photoURL ?? '')),
-          );
+                child: Image.network(user.photoURL ?? ''))),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(Colors.white.value),
-        title: Text(
-          'Hi! ${user.displayName ?? ''}',
-          style: const TextStyle(color: Colors.black),
-        ),
-        leading: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: profileAvatar,
-        ),
+        title: Text('Hi! ${user.displayName ?? ''}'),
+        leading: profileAvatar,
         toolbarHeight: 70,
         actions: [
           IconButton(
@@ -69,18 +66,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   content: const Text('Are you sure you want to logout?'),
                   actions: [
                     TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('No'),
-                    ),
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('No')),
                     TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        FirebaseAuth.instance.signOut();
-                      },
-                      child: const Text('Yes'),
-                    ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          FirebaseAuth.instance.signOut();
+                        },
+                        child: const Text('Yes')),
                   ],
                 ),
               );

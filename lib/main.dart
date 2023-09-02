@@ -31,7 +31,7 @@ class App extends StatelessWidget {
         final themeProvider = ref.watch(themeProviderNotifier);
         return MaterialApp(
           title: 'Swapit',
-          theme: theme,
+          theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeProvider.themeMode,
           home: StreamBuilder(

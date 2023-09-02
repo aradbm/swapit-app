@@ -44,15 +44,18 @@ class _SingleCategoriesPickerState extends State<SingleCategoriesPicker> {
           color: Colors.deepPurpleAccent,
         ),
         items: widget.categories.when(
-          data: (value) => value
-              .where((element) => element.parentID == widget.parentID)
-              .map(
-                (category) => DropdownMenuItem<ItemCategory>(
-                  value: category,
-                  child: Text(category.name),
-                ),
-              )
-              .toList(),
+          data: (value) {
+            print(value);
+            return value
+                .where((element) => element.parentID == widget.parentID)
+                .map(
+                  (category) => DropdownMenuItem<ItemCategory>(
+                    value: category,
+                    child: Text(category.name),
+                  ),
+                )
+                .toList();
+          },
           loading: () => const [
             DropdownMenuItem<ItemCategory>(
               value: null,

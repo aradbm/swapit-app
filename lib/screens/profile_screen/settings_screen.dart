@@ -16,9 +16,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings',
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onPrimary,
-            )),
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
       ),
       body: Column(
         children: [

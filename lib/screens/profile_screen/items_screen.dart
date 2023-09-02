@@ -2,25 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/profile_screen/backpack_screen/add_bp_screen.dart';
 import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_form.dart';
 import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_screen.dart';
-
 import 'backpack_screen/backpack_screen.dart';
 
 class MyItemsScreen extends StatefulWidget {
   const MyItemsScreen({super.key});
-
   @override
   State<MyItemsScreen> createState() => _MyItemsScreenState();
 }
 
 final List<Tab> myTabs = <Tab>[
-  const Tab(
-    text: 'BackPack',
-    icon: Icon(Icons.backpack),
-  ),
-  const Tab(
-    text: 'WishList',
-    icon: Icon(Icons.list_alt),
-  ),
+  const Tab(text: 'BackPack', icon: Icon(Icons.backpack)),
+  const Tab(text: 'WishList', icon: Icon(Icons.list_alt)),
 ];
 
 class _MyItemsScreenState extends State<MyItemsScreen> {
@@ -35,7 +27,6 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
             FloatingActionButton(
               heroTag: 'backpack',
               onPressed: () {
-                // push from bottom to top
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -44,11 +35,7 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                 );
               },
               backgroundColor: Colors.purpleAccent,
-              child: const Icon(
-                Icons.add,
-                size: 40,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.add, size: 40, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
@@ -64,11 +51,8 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                 );
               },
               backgroundColor: Colors.pinkAccent,
-              child: const Icon(
-                Icons.add_shopping_cart_sharp,
-                size: 40,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.add_shopping_cart_sharp,
+                  size: 40, color: Colors.white),
             ),
           ],
         ),

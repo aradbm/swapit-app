@@ -9,15 +9,18 @@ import '../../../providers/wishlist_provider.dart';
 import 'components/text_form_container.dart';
 
 class EditWishList extends ConsumerStatefulWidget {
-  const EditWishList({super.key});
+  const EditWishList({super.key, this.item});
+
+  final WishListItem? item;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _WishListFormState();
 }
 
+enum Sized { small, medium, large, xlarge, none }
+
 class _WishListFormState extends ConsumerState<EditWishList> {
   final _formKey = GlobalKey<FormState>();
-  final _itemNameController = TextEditingController();
   final _itemDescriptionController = TextEditingController();
   final _itemCategoryController = TextEditingController();
   final _itemSizeController = TextEditingController();
@@ -26,13 +29,25 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   final _itemSizeValues = <String>['Small', 'Medium', 'Large', 'X-Large'];
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.item != null) {
+      _itemDescriptionController.text = widget.item!.description ?? '';
+      _itemCategoryController.text = widget.item!.categoryID.toString();
+      _itemSizeController.text = widget.item!.size ?? 'none';
+      _itemMinPriceController.text = widget.item!.minPrice.toString();
+      _itemMaxPriceController.text = widget.item!.maxPrice.toString();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final wishlistProvider = ref.watch(wishListProvider);
     final AsyncValue<AppUser> user = ref.watch(userProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add or edit Wish List Item'),
+        title: const Text('Add or Edit Wish List Item'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -40,13 +55,9 @@ class _WishListFormState extends ConsumerState<EditWishList> {
           child: Column(
             children: [
               TextFormContainer(
-                  itemNameController: _itemNameController, title: 'Item Name'),
-              TextFormContainer(
                   itemNameController: _itemDescriptionController,
                   title: 'Item Description'),
-              CategoryPicker(onChanged:
-                  // _onChanged
-                  (value) {
+              CategoryPicker(onChanged: (value) {
                 setState(() {
                   _itemCategoryController.text = value!.categoryID.toString();
                 });
@@ -133,13 +144,12 @@ class _WishListFormState extends ConsumerState<EditWishList> {
 
                     if (item.userID == '') {
                       return;
-                      // show error
+                      // pop snackbar
                     }
 
                     wishlistProvider.addItem(item);
                     Api.uploadWishList(item);
 
-                    // clear text fields and pop screen
                     Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
