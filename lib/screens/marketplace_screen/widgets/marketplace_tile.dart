@@ -26,10 +26,10 @@ class ItemTile extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               // borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: AssetImage(item.image),
-                fit: BoxFit.fill,
-              ),
+              // image: DecorationImage(
+              //   image: AssetImage(item.image),
+              //   fit: BoxFit.fill,
+              // ),
               border: Border.all(
                 color: Colors.black,
                 width: 1,
@@ -40,7 +40,7 @@ class ItemTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                item.name,
+                item.title,
                 style: const TextStyle(
                     fontSize: 15,
                     color: Colors.black,

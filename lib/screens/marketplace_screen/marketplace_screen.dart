@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:swapit_app/screens/profile_screen/backpack_screen/componenets/category_picker.dart';
 import 'package:swapit_app/screens/marketplace_screen/widgets/market_drawer.dart';
 import 'package:swapit_app/screens/marketplace_screen/widgets/marketplace_tile.dart';
-
-import '../../data/user1_bp.dart';
 import '../../models/backpack_item.dart';
-// import '../../models/category.dart';
-// import '../../providers/categories_provider.dart';
 
 class MarketPlaceScreen extends ConsumerStatefulWidget {
   const MarketPlaceScreen({super.key});
@@ -17,11 +12,10 @@ class MarketPlaceScreen extends ConsumerStatefulWidget {
 }
 
 class _MarketPlaceScreenState extends ConsumerState<MarketPlaceScreen> {
-  List<BackPackItem> ls = dummyBackpackItems;
+  List<BackPackItem> ls = [];
 
   @override
   Widget build(BuildContext context) {
-    // AsyncValue<List<ItemCategory>> categories = ref.watch(categoriesProvider);
     return Scaffold(
       drawer: const MarketDrawer(),
       appBar: AppBar(

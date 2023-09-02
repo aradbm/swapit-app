@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:swapit_app/models/backpack_item.dart';
 import 'package:swapit_app/models/wishlist_item.dart';
 
 import '../models/user.dart';
@@ -20,7 +21,62 @@ class Api {
     var response = await http.get(url);
     return response.body;
   }
+  ////// Backpack API calls: //////
 
+  // get backpack items for a user with a specific id
+  // returns a list of BackPackItem objects
+  static getBackPack(String id) async {
+    var url = Uri.parse("$BASE_URL/backpacks/$id");
+    var response = await http.get(url);
+    return (jsonDecode(response.body) as List)
+        .map((e) => BackPackItem.fromJson(e))
+        .toList();
+  }
+
+  // publish a new backpack item
+  static uploadBackPack(BackPackItem item) async {
+    var url = Uri.parse("$BASE_URL/backpacks/");
+    String body = jsonEncode(item.toJson());
+
+    try {
+      var response = await http.post(url,
+          headers: {"Content-Type": "application/json"}, body: body);
+      return response.body;
+    } catch (e) {
+      // print(e);
+    }
+  }
+
+  // update an existing backpack item
+  static updateBackPack(BackPackItem item) async {
+    var url = Uri.parse("$BASE_URL/backpacks/${item.itemID}");
+    String body = jsonEncode(item.toJson());
+
+    try {
+      var response = await http.put(url,
+          headers: {"Content-Type": "application/json"}, body: body);
+      return response.body;
+    } catch (e) {
+      // print(e);
+    }
+  }
+
+  // delete an existing backpack item
+
+  static deleteBackPack(BackPackItem item) async {
+    var url = Uri.parse("$BASE_URL/backpacks/${item.itemID}");
+
+    try {
+      var response = await http.delete(url);
+      return response.body;
+    } catch (e) {
+      // print(e);
+    }
+  }
+
+  ////// Wishlist API calls: //////
+
+  // get wishlist items for a user with a specific id
   static getWishList(String id) async {
     var url = Uri.parse("$BASE_URL/wishlists/$id");
     var response = await http.get(url);

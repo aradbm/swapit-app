@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/components/category_picker.dart';
 import 'package:swapit_app/models/backpack_item.dart';
-import 'package:swapit_app/data/user1_bp.dart';
 import 'package:swapit_app/models/category.dart';
+import 'package:swapit_app/providers/backpack_provider.dart';
 import 'package:swapit_app/screens/profile_screen/backpack_screen/componenets/backpack_tile.dart';
 
 class BackPackScrreen extends ConsumerStatefulWidget {
@@ -21,10 +21,12 @@ class _BackPackScrreenState extends ConsumerState<BackPackScrreen> {
     });
   }
 
-  List<BackPackItem> ls = dummyBackpackItems;
+  List<BackPackItem> ls = [];
   ItemCategory? _category;
   @override
   Widget build(BuildContext context) {
+    List<BackPackItem> backpack = ref.watch(backPackProvider).items;
+
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Column(
@@ -47,14 +49,12 @@ class _BackPackScrreenState extends ConsumerState<BackPackScrreen> {
                 mainAxisSpacing: 10,
               ),
               children: [
-                ...ls.map((e) => BackPackTile(item: e)),
+                for (var item in backpack) BackPackTile(item: item),
               ],
             ),
           ),
-          Text(
-            'Total Items: ${ls.length}',
-            style: const TextStyle(fontSize: 20),
-          ),
+          Text('Total Items: ${ls.length}',
+              style: const TextStyle(fontSize: 20)),
         ],
       ),
     );

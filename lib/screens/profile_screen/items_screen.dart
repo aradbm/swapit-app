@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:swapit_app/screens/profile_screen/backpack_screen/add_bp_screen.dart';
+import 'package:swapit_app/screens/profile_screen/backpack_screen/backpack_form.dart';
 import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_form.dart';
 import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_screen.dart';
 import 'backpack_screen/backpack_screen.dart';

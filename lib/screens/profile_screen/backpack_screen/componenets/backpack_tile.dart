@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swapit_app/models/backpack_item.dart';
-import 'package:swapit_app/screens/profile_screen/backpack_screen/add_bp_screen.dart';
+import 'package:swapit_app/screens/profile_screen/backpack_screen/backpack_form.dart';
 
 class BackPackTile extends StatelessWidget {
   const BackPackTile({super.key, required this.item});
@@ -35,13 +35,40 @@ class BackPackTile extends StatelessWidget {
             Flexible(
               child: Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image(
-                      image: AssetImage(item.image),
-                      fit: BoxFit.cover,
-                      height: 200,
-                      width: 200,
+                  // ClipRRect(
+                  //   borderRadius: BorderRadius.circular(30),
+                  //   child: Image(
+                  //     image: AssetImage(item.image),
+                  //     fit: BoxFit.cover,
+                  //     height: 200,
+                  //     width: 200,
+                  //   ),
+                  // ),
+                  // container with item.color
+                  Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color: item.color,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Text(
+                        '\$${item.price}',
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
                   Positioned(
@@ -50,7 +77,7 @@ class BackPackTile extends StatelessWidget {
                       height: 25,
                       width: 200,
                       child: Text(
-                        item.name,
+                        item.title,
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                         softWrap: true,
