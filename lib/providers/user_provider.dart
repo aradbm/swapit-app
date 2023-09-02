@@ -4,7 +4,10 @@ import '../models/user.dart';
 import '../services/api.dart';
 
 final userProvider = FutureProvider<AppUser>((ref) async {
-  final user = FirebaseAuth.instance.currentUser!;
-  Future<AppUser> response = Api.getUser(user.uid);
-  return response;
+  final user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    return Api.getUser(user.uid);
+  }
+  // handle null case as needed
+  throw UnimplementedError("No user found");
 });

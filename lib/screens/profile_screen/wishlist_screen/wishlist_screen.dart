@@ -16,6 +16,7 @@ class _WishListScrreenState extends ConsumerState<WishListScrreen> {
   @override
   Widget build(BuildContext context) {
     var wishlist = ref.watch(wishListProvider).wishList;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView(

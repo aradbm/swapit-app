@@ -58,21 +58,16 @@ class _Cpall extends ConsumerState<CategoryPicker> {
       child: Column(
         children: [
           SingleCategoriesPicker(
-            categories: categories,
-            onChanged: _onC1Changed,
-          ),
+              categories: categories, onChanged: _onC1Changed),
           const SizedBox(height: 10),
           if (_category != null)
             SingleCategoriesPicker(
-              categories: categories,
-              onChanged: _onC2Changed,
-              parentID: _category!.categoryID,
-            ),
+                categories: categories,
+                onChanged: _onC2Changed,
+                parentID: _category!.categoryID),
           const SizedBox(height: 10),
-          // also check categories with parentID == _category2.categoryID is not empty
           if (_category2 != null &&
               categories.when(
-                      // <--
                       data: (value) => value
                           .where((element) =>
                               element.parentID == _category2!.categoryID)
@@ -81,10 +76,9 @@ class _Cpall extends ConsumerState<CategoryPicker> {
                       error: (_, __) => false) ==
                   true)
             SingleCategoriesPicker(
-              categories: categories,
-              onChanged: _onC3Changed,
-              parentID: _category2!.categoryID,
-            ),
+                categories: categories,
+                onChanged: _onC3Changed,
+                parentID: _category2!.categoryID),
         ],
       ),
     );

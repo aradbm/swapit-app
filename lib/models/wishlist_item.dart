@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class WishListItem {
@@ -33,14 +35,27 @@ class WishListItem {
         'Description': description,
       };
 
+  // random color generator
+  static Color getRandomColor() {
+    final random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
+    );
+  }
+
   factory WishListItem.fromJson(Map<String, dynamic> json) => WishListItem(
-        itemID: json['itemID'],
-        userID: json['userID'],
-        categoryID: json['categoryID'],
-        color: Color(json['color']),
+        itemID: json['itemid'].toString(),
+        userID: json['userid'],
+        categoryID: json['categoryid'],
+        color: (json['color'] != null && json['color'].runtimeType == int)
+            ? Color(int.parse(json['color']))
+            : getRandomColor(),
         size: json['size'],
-        minPrice: json['minPrice'],
-        maxPrice: json['maxPrice'],
+        minPrice: json['minprice'],
+        maxPrice: json['maxprice'],
         description: json['description'],
       );
 

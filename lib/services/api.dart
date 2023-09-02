@@ -21,12 +21,12 @@ class Api {
     return response.body;
   }
 
-  static Future<List<WishListItem>> getWishList(String id) async {
+  static getWishList(String id) async {
     var url = Uri.parse("$BASE_URL/wishlists/$id");
     var response = await http.get(url);
-    return Future.value((jsonDecode(response.body) as List)
+    return (jsonDecode(response.body) as List)
         .map((e) => WishListItem.fromJson(e))
-        .toList());
+        .toList();
   }
 
   static uploadWishList(WishListItem item) async {
