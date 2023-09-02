@@ -50,6 +50,11 @@ ThemeData lightTheme = ThemeData(
     labelColor: Color(0xFF2E3440),
     unselectedLabelColor: Color(0xFF6C757D),
   ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    backgroundColor: Color(0xFFFFA07A),
+    selectedItemColor: Color(0xFF2E3440),
+    unselectedItemColor: Color(0xFF2E3440),
+  ),
 );
 
 // Unique Dark Theme

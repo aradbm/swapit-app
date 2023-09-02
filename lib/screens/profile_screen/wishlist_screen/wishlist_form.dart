@@ -5,18 +5,14 @@ import '../../../models/user.dart';
 import '../../../models/wishlist_item.dart';
 import '../../../providers/user_provider.dart';
 import '../../../providers/wishlist_provider.dart';
-import 'components/text_form_container.dart';
+import '../../../components/text_form_container.dart';
 
 class EditWishList extends ConsumerStatefulWidget {
   const EditWishList({super.key, this.item});
-
   final WishListItem? item;
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _WishListFormState();
 }
-
-enum Sized { small, medium, large, xlarge, none }
 
 class _WishListFormState extends ConsumerState<EditWishList> {
   final _formKey = GlobalKey<FormState>();
@@ -171,6 +167,28 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                   }
                 },
                 child: const Text('Submit'),
+              ),
+              // add random item button, not elevated button
+              FilledButton(
+                onPressed: () {
+                  final item = WishListItem(
+                    itemID: widget.item?.itemID ?? 0,
+                    userID: user.when(
+                      data: (user) => user.uid,
+                      loading: () => '',
+                      error: (err, stack) => '',
+                    ),
+                    categoryID: 1,
+                    color: WishListItem.getRandomColor(),
+                    size: 'none',
+                    minPrice: 0,
+                    maxPrice: 0,
+                    description: 'Random Description',
+                  );
+                  wishlistProvider.addItem(item);
+                  Navigator.pop(context);
+                },
+                child: const Text('Add Random Item'),
               ),
             ],
           ),

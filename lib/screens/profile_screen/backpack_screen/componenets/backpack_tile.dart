@@ -72,9 +72,9 @@ class BackPackTile extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    bottom: 0,
+                    bottom: 5,
                     child: SizedBox(
-                      height: 25,
+                      height: 40,
                       width: 200,
                       child: Text(
                         item.title,

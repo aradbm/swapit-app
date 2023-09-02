@@ -19,7 +19,7 @@ class BackPackItem {
   final int itemID;
   final String userID;
   final String title;
-  final Color color;
+  final Color? color;
   final int? price;
   final int? originalPrice;
   final int category;
@@ -59,7 +59,7 @@ class BackPackItem {
     return {
       'userID': userID,
       'title': title,
-      'color': color.value.toString(),
+      'color': color?.value == null ? 0 : color!.value.toString(),
       'price': price,
       'originalPrice': originalPrice,
       'category': category,

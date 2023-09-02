@@ -28,7 +28,7 @@ class WishListItem {
         'ItemID': itemID,
         'UserID': userID,
         'CategoryID': categoryID,
-        'Color': color.toString(),
+        'Color': color.value.toString(),
         'Size': size,
         'MinPrice': minPrice,
         'MaxPrice': maxPrice,
@@ -53,9 +53,7 @@ class WishListItem {
         itemID: json['itemid'],
         userID: json['userid'],
         categoryID: json['categoryid'],
-        color: (json['color'] != null && json['color'].runtimeType == int)
-            ? Color(int.parse(json['color']))
-            : getRandomColor(),
+        color: Color(int.parse(json['color'])),
         size: json['size'],
         minPrice: json['minprice'],
         maxPrice: json['maxprice'],
