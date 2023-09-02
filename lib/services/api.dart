@@ -34,11 +34,34 @@ class Api {
     String body = jsonEncode(item.toJson());
 
     try {
-      var response = await http.post(
-        url,
-        headers: {"Content-Type": "application/json"},
-        body: body,
-      );
+      var response = await http.post(url,
+          headers: {"Content-Type": "application/json"}, body: body);
+      return response.body;
+    } catch (e) {
+      // print(e);
+    }
+  }
+
+  static Future<String> updateWishList(WishListItem item) async {
+    var url = Uri.parse("$BASE_URL/wishlists/${item.itemID}");
+    String body = jsonEncode(item.toJson());
+
+    try {
+      var response = await http.put(url,
+          headers: {"Content-Type": "application/json"}, body: body);
+      return response.body;
+    } catch (e) {
+      // print(e);
+    }
+
+    return "";
+  }
+
+  static deleteWishList(WishListItem item) async {
+    var url = Uri.parse("$BASE_URL/wishlists/${item.itemID}");
+
+    try {
+      var response = await http.delete(url);
       return response.body;
     } catch (e) {
       // print(e);

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/components/category_picker.dart';
-import 'package:swapit_app/services/api.dart';
 import '../../../models/user.dart';
 import '../../../models/wishlist_item.dart';
 import '../../../providers/user_provider.dart';
@@ -48,6 +47,15 @@ class _WishListFormState extends ConsumerState<EditWishList> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add or Edit Wish List Item'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              wishlistProvider.removeItem(widget.item!);
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.delete),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -126,7 +134,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final item = WishListItem(
-                      itemID: "item${wishlistProvider.wishList.length + 1}",
+                      itemID: widget.item?.itemID ?? 0,
                       userID: user.when(
                         data: (user) => user.uid,
                         loading: () => '',
@@ -147,9 +155,12 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                       // pop snackbar
                     }
 
-                    wishlistProvider.addItem(item);
-                    Api.uploadWishList(item);
-
+                    // check if its an edit or add first time
+                    if (widget.item != null) {
+                      wishlistProvider.updateItem(item);
+                    } else {
+                      wishlistProvider.addItem(item);
+                    }
                     Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -159,15 +170,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                     );
                   }
                 },
-                child: const Text('add sample item'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  final provider = ref.watch(wishListProvider);
-                  provider.removeItem(provider.wishList.first);
-                  Navigator.pop(context);
-                },
-                child: const Text('Remove first item for fun lol'),
+                child: const Text('Submit'),
               ),
             ],
           ),

@@ -14,7 +14,7 @@ class WishListItem {
     this.description,
   });
 
-  final String itemID;
+  final int itemID;
   final String userID;
   final int categoryID;
   final Color color;
@@ -46,8 +46,11 @@ class WishListItem {
     );
   }
 
+  // setter for itemID
+  set itemID(int id) => itemID = id;
+
   factory WishListItem.fromJson(Map<String, dynamic> json) => WishListItem(
-        itemID: json['itemid'].toString(),
+        itemID: json['itemid'],
         userID: json['userid'],
         categoryID: json['categoryid'],
         color: (json['color'] != null && json['color'].runtimeType == int)

@@ -37,11 +37,21 @@ class WishListProvider extends ChangeNotifier {
 
   void addItem(WishListItem item) {
     _wishList.add(item);
+    Api.uploadWishList(item);
+    // item.itemID = int.parse(id.toString()); // TODO: fix this
     notifyListeners();
   }
 
   void removeItem(WishListItem item) {
     _wishList.remove(item);
+    Api.deleteWishList(item);
+    notifyListeners();
+  }
+
+  void updateItem(WishListItem item) {
+    Api.updateWishList(item);
+    _wishList[_wishList
+        .indexWhere((element) => element.itemID == item.itemID)] = item;
     notifyListeners();
   }
 
