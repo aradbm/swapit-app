@@ -64,13 +64,13 @@ class _Cpall extends ConsumerState<CategoryPicker> {
             SingleCategoriesPicker(
                 categories: categories,
                 onChanged: _onC2Changed,
-                parentID: _category!.categoryID),
+                parentID: _category!.categoryid),
           const SizedBox(height: 10),
           if (_category2 != null &&
               categories.when(
                       data: (value) => value
                           .where((element) =>
-                              element.parentID == _category2!.categoryID)
+                              element.parentid == _category2!.categoryid)
                           .isNotEmpty,
                       loading: () => false,
                       error: (_, __) => false) ==
@@ -78,7 +78,7 @@ class _Cpall extends ConsumerState<CategoryPicker> {
             SingleCategoriesPicker(
                 categories: categories,
                 onChanged: _onC3Changed,
-                parentID: _category2!.categoryID),
+                parentID: _category2!.categoryid),
         ],
       ),
     );

@@ -53,9 +53,9 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
       _itemColorController.text = widget.item!.color.toString();
       _itemPriceConroller.text = widget.item!.price.toString();
       _itemOriginalPriceController.text =
-          widget.item?.originalPrice.toString() ?? '';
+          widget.item?.originalprice.toString() ?? '';
       _itemDescriptionController.text = widget.item!.description ?? '';
-      _itemCategoryController.text = widget.item!.category.toString();
+      _itemCategoryController.text = widget.item!.categoryid.toString();
       _itemSizeController.text = widget.item!.size ?? 'none';
     }
   }
@@ -98,7 +98,7 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                   title: 'Item Description'),
               CategoryPicker(onChanged: (value) {
                 setState(() {
-                  _itemCategoryController.text = value!.categoryID.toString();
+                  _itemCategoryController.text = value!.categoryid.toString();
                 });
               }),
               DropdownButtonFormField(
@@ -117,8 +117,8 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final item = BackPackItem(
-                      itemID: widget.item?.itemID ?? 0,
-                      userID: user.when(
+                      itemid: widget.item?.itemid ?? 0,
+                      uid: user.when(
                         data: (user) => user.uid,
                         loading: () => '',
                         error: (err, stack) => '',
@@ -126,9 +126,9 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                       title: _itemTitleController.text,
                       color: BackPackItem.getRandomColor(),
                       price: int.parse(_itemPriceConroller.text),
-                      originalPrice:
+                      originalprice:
                           int.parse(_itemOriginalPriceController.text),
-                      category: int.parse(_itemCategoryController.text),
+                      categoryid: int.parse(_itemCategoryController.text),
                       description: _itemDescriptionController.text,
                       size: _itemSizeController.text,
                       location: 'none',
@@ -143,8 +143,8 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
               FilledButton(
                 onPressed: () {
                   final item = BackPackItem(
-                    itemID: widget.item?.itemID ?? 0,
-                    userID: user.when(
+                    itemid: widget.item?.itemid ?? 0,
+                    uid: user.when(
                       data: (user) => user.uid,
                       loading: () => '',
                       error: (err, stack) => '',
@@ -152,8 +152,8 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                     title: 'Random Item',
                     color: BackPackItem.getRandomColor(),
                     price: 0,
-                    originalPrice: 0,
-                    category: 12,
+                    originalprice: 0,
+                    categoryid: 12,
                     description: 'Random Description',
                     size: 'none',
                     location: 'none',

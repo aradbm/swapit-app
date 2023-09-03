@@ -28,10 +28,10 @@ class _WishListFormState extends ConsumerState<EditWishList> {
     super.initState();
     if (widget.item != null) {
       _itemDescriptionController.text = widget.item!.description ?? '';
-      _itemCategoryController.text = widget.item!.categoryID.toString();
+      _itemCategoryController.text = widget.item!.categoryid.toString();
       _itemSizeController.text = widget.item!.size ?? 'none';
-      _itemMinPriceController.text = widget.item!.minPrice.toString();
-      _itemMaxPriceController.text = widget.item!.maxPrice.toString();
+      _itemMinPriceController.text = widget.item!.minprice.toString();
+      _itemMaxPriceController.text = widget.item!.maxprice.toString();
     }
   }
 
@@ -63,65 +63,93 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                   title: 'Item Description'),
               CategoryPicker(onChanged: (value) {
                 setState(() {
-                  _itemCategoryController.text = value!.categoryID.toString();
+                  _itemCategoryController.text = value!.categoryid.toString();
                 });
               }),
-              DropdownButtonFormField(
-                  icon: const Icon(Icons.arrow_downward),
-                  value: _itemSizeValues.first,
-                  items: _itemSizeValues.map((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    _itemSizeController.text = value.toString();
-                  }),
+              Container(
+                height: 50,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: DropdownButtonFormField(
+                    iconSize: 36,
+                    elevation: 16,
+                    menuMaxHeight: 300,
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    value: _itemSizeValues.first,
+                    items: _itemSizeValues.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      _itemSizeController.text = value.toString();
+                    }),
+              ),
               Row(
                 children: [
                   Flexible(
-                    child: TextFormField(
-                      controller: _itemMinPriceController,
-                      decoration: const InputDecoration(
-                        labelText: 'Min Price',
-                        hintText: 'Enter Min Price here',
-                        icon: Icon(Icons.money),
+                    child: Container(
+                      height: 70,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 144, 144),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      style: const TextStyle(fontSize: 20),
-                      textInputAction: TextInputAction.next,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please a price';
-                        }
-                        if (double.tryParse(value) == null ||
-                            double.tryParse(value)! < 0) {
-                          return 'Please enter a valid number';
-                        }
-                        return null;
-                      },
+                      child: TextFormField(
+                        controller: _itemMinPriceController,
+                        decoration: const InputDecoration(
+                          labelText: 'Min Price',
+                          hintText: 'Enter Min Price here',
+                          icon: Icon(Icons.money),
+                        ),
+                        style: const TextStyle(fontSize: 15),
+                        textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please a price';
+                          }
+                          if (double.tryParse(value) == null ||
+                              double.tryParse(value)! < 0) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                   Flexible(
-                    child: TextFormField(
-                      controller: _itemMaxPriceController,
-                      decoration: const InputDecoration(
-                        labelText: 'Max Price',
-                        hintText: 'Enter Max Price here',
-                        icon: Icon(Icons.money),
+                    child: Container(
+                      height: 70,
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 255, 144, 144),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      style: const TextStyle(fontSize: 20),
-                      textInputAction: TextInputAction.next,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please a price';
-                        }
-                        if (double.tryParse(value) == null ||
-                            double.tryParse(value)! < 0) {
-                          return 'Please enter a valid number';
-                        }
-                        return null;
-                      },
+                      child: TextFormField(
+                        controller: _itemMaxPriceController,
+                        decoration: const InputDecoration(
+                          labelText: 'Max Price',
+                          hintText: 'Enter Max Price here',
+                          icon: Icon(Icons.money),
+                        ),
+                        style: const TextStyle(fontSize: 15),
+                        textInputAction: TextInputAction.next,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please a price';
+                          }
+                          if (double.tryParse(value) == null ||
+                              double.tryParse(value)! < 0) {
+                            return 'Please enter a valid number';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -130,23 +158,23 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final item = WishListItem(
-                      itemID: widget.item?.itemID ?? 0,
-                      userID: user.when(
+                      itemid: widget.item?.itemid ?? 0,
+                      uid: user.when(
                         data: (user) => user.uid,
                         loading: () => '',
                         error: (error, stackTrace) => '',
                       ),
                       color: Colors.red,
-                      categoryID: int.parse(_itemCategoryController.text),
+                      categoryid: int.parse(_itemCategoryController.text),
                       size: _itemSizeController.text == ''
                           ? 'small'
                           : _itemSizeController.text,
-                      minPrice: int.parse(_itemMinPriceController.text),
-                      maxPrice: int.parse(_itemMaxPriceController.text),
+                      minprice: int.parse(_itemMinPriceController.text),
+                      maxprice: int.parse(_itemMaxPriceController.text),
                       description: _itemDescriptionController.text,
                     );
 
-                    if (item.userID == '') {
+                    if (item.uid == '') {
                       return;
                       // pop snackbar
                     }
@@ -172,17 +200,18 @@ class _WishListFormState extends ConsumerState<EditWishList> {
               FilledButton(
                 onPressed: () {
                   final item = WishListItem(
-                    itemID: widget.item?.itemID ?? 0,
-                    userID: user.when(
+                    itemid: widget.item?.itemid ??
+                        wishlistProvider.wishList.length + 1,
+                    uid: user.when(
                       data: (user) => user.uid,
                       loading: () => '',
                       error: (err, stack) => '',
                     ),
-                    categoryID: 1,
+                    categoryid: 1,
                     color: WishListItem.getRandomColor(),
                     size: 'none',
-                    minPrice: 0,
-                    maxPrice: 0,
+                    minprice: 0,
+                    maxprice: 0,
                     description: 'Random Description',
                   );
                   wishlistProvider.addItem(item);

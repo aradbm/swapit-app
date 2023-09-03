@@ -2,38 +2,33 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+const defualtlatitude = 32.085300;
+const defualtlongitude = 34.781769;
+
 class WishListItem {
   const WishListItem({
-    required this.itemID,
-    required this.userID,
-    required this.categoryID,
+    required this.itemid,
+    required this.uid,
+    required this.categoryid,
     required this.color,
     this.size,
-    this.minPrice,
-    this.maxPrice,
+    this.minprice,
+    this.maxprice,
     this.description,
+    this.latitude = defualtlatitude,
+    this.longitude = defualtlongitude,
   });
 
-  final int itemID;
-  final String userID;
-  final int categoryID;
+  final int itemid;
+  final String uid;
+  final int categoryid;
   final Color color;
   final String? size;
-  final int? minPrice;
-  final int? maxPrice;
+  final int? minprice;
+  final int? maxprice;
   final String? description;
-
-  // to json and from json methods
-  Map<String, dynamic> toJson() => {
-        'ItemID': itemID,
-        'UserID': userID,
-        'CategoryID': categoryID,
-        'Color': color.value.toString(),
-        'Size': size,
-        'MinPrice': minPrice,
-        'MaxPrice': maxPrice,
-        'Description': description,
-      };
+  final double latitude;
+  final double longitude;
 
   // random color generator
   static Color getRandomColor() {
@@ -47,17 +42,33 @@ class WishListItem {
   }
 
   // setter for itemID
-  set itemID(int id) => itemID = id;
+  set itemid(int id) => itemid = id;
+
+  // to json and from json methods
+  Map<String, dynamic> toJson() => {
+        'itemid': itemid,
+        'uid': uid,
+        'categoryid': categoryid,
+        'color': color.value.toString(),
+        'size': size,
+        'minprice': minprice,
+        'maxprice': maxprice,
+        'description': description,
+        'latitude': latitude,
+        'longitude': longitude,
+      };
 
   factory WishListItem.fromJson(Map<String, dynamic> json) => WishListItem(
-        itemID: json['itemid'],
-        userID: json['userid'],
-        categoryID: json['categoryid'],
+        itemid: json['itemid'],
+        uid: json['uid'],
+        categoryid: json['categoryid'],
         color: Color(int.parse(json['color'])),
         size: json['size'],
-        minPrice: json['minprice'],
-        maxPrice: json['maxprice'],
+        minprice: json['minprice'],
+        maxprice: json['maxprice'],
         description: json['description'],
+        latitude: json['latitude'] ?? defualtlatitude,
+        longitude: json['longitude'] ?? defualtlongitude,
       );
 
   Icon get getIcon {
@@ -99,7 +110,7 @@ class WishListItem {
     //  36 | Bracelets           |             14
     //  37 | Earrings            |             14
 
-    switch ((categoryID)) {
+    switch ((categoryid)) {
       case 1:
         return const Icon(Icons.indeterminate_check_box);
       case 2:
@@ -120,8 +131,4 @@ class WishListItem {
         return const Icon(Icons.accessibility_new);
     }
   }
-
-  // to string method using to json method
-  @override
-  String toString() => toJson().toString();
 }

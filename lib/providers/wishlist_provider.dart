@@ -51,7 +51,7 @@ class WishListProvider extends ChangeNotifier {
   void updateItem(WishListItem item) {
     Api.updateWishList(item);
     _wishList[_wishList
-        .indexWhere((element) => element.itemID == item.itemID)] = item;
+        .indexWhere((element) => element.itemid == item.itemid)] = item;
     notifyListeners();
   }
 

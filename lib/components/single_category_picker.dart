@@ -46,7 +46,7 @@ class _SingleCategoriesPickerState extends State<SingleCategoriesPicker> {
         items: widget.categories.when(
           data: (value) {
             return value
-                .where((element) => element.parentID == widget.parentID)
+                .where((element) => element.parentid == widget.parentID)
                 .map(
                   (category) => DropdownMenuItem<ItemCategory>(
                     value: category,

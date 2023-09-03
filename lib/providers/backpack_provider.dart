@@ -52,7 +52,7 @@ class BackPackProvider extends ChangeNotifier {
   }
 
   void updateItem(BackPackItem item) {
-    _items[_items.indexWhere((element) => element.itemID == item.itemID)] =
+    _items[_items.indexWhere((element) => element.itemid == item.itemid)] =
         item;
     Api.updateBackPack(item);
     notifyListeners();

@@ -1,32 +1,32 @@
 class ItemCategory {
   final String name;
-  final int categoryID;
-  final int parentID;
+  final int categoryid;
+  final int parentid;
 
   ItemCategory({
     required this.name,
-    required this.categoryID,
-    required this.parentID,
+    required this.categoryid,
+    required this.parentid,
   });
 
   factory ItemCategory.fromJson(Map<String, dynamic> json) {
     return ItemCategory(
       name: json['categoryname'],
-      categoryID: json['categoryid'],
-      parentID: json['parentcategory'],
+      categoryid: json['categoryid'],
+      parentid: json['parentcategory'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'categoryname': name,
-      'categoryid': categoryID,
-      'parentcategory': parentID,
+      'categoryid': categoryid,
+      'parentcategory': parentid,
     };
   }
 
   @override
   String toString() {
-    return 'Category{name: $name, categoryID: $categoryID, parentID: $parentID}';
+    return 'Category{name: $name, categoryid: $categoryid, parentcategory: $parentid}';
   }
 }

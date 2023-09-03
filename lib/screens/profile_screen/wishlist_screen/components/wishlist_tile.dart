@@ -46,7 +46,7 @@ class WishListTile extends StatelessWidget {
                 highlightColor: item.color,
               ),
               const SizedBox(width: 50),
-              Text(item.categoryID.toString()),
+              Text(item.categoryid.toString()),
             ],
           ),
         ),

@@ -1,48 +1,48 @@
 class AppUser {
   final String uid;
-  final String userName;
-  final DateTime? lastLogin;
-  final DateTime dateCreated;
-  final String userStatus;
+  final String username;
+  final DateTime? lastlogin;
+  final DateTime datecreated;
+  final String userstatus;
 
-  AppUser(
-    this.uid,
-    this.userName,
-    this.lastLogin,
-    this.dateCreated,
-    this.userStatus,
-  );
+  AppUser({
+    required this.uid,
+    required this.username,
+    required this.lastlogin,
+    required this.datecreated,
+    required this.userstatus,
+  });
 
   AppUser.fromMap(Map<String, dynamic> map)
       : uid = map['uid'],
-        userName = map['userName'],
-        lastLogin = map['lastLogin'],
-        dateCreated = map['dateCreated'],
-        userStatus = map['userStatus'];
+        username = map['username'],
+        lastlogin = map['lastlogin'],
+        datecreated = map['datecreated'],
+        userstatus = map['userstatus'];
 
   Map<String, dynamic> toMap() {
     return {
       'userid': uid,
-      'username': userName,
-      'lastlogin': lastLogin,
-      'datecreated': dateCreated,
-      'userstatus': userStatus,
+      'username': username,
+      'lastlogin': lastlogin,
+      'datecreated': datecreated,
+      'userstatus': userstatus,
     };
   }
 
   factory AppUser.fromJson(Map<String, dynamic> json) {
     // convert the date strings to DateTime objects
     return AppUser(
-      json['userid'].toString(),
-      json['username'],
-      DateTime.parse(json['lastlogin']),
-      DateTime.parse(json['datecreated']),
-      json['userstatus'],
+      uid: json['uid'],
+      username: json['username'] ?? '',
+      lastlogin: DateTime.parse(json['lastlogin'] ?? '2021-01-01'),
+      datecreated: DateTime.parse(json['datecreated']),
+      userstatus: json['userstatus'] ?? 'active',
     );
   }
 
   @override
   String toString() {
-    return 'User{uid: $uid, userName: $userName, lastLogin: $lastLogin, dateCreated: $dateCreated, userStatus: $userStatus}';
+    return 'User{uid: $uid, userName: $username, lastLogin: $lastlogin, dateCreated: $datecreated, userStatus: $userstatus}';
   }
 }

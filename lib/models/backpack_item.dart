@@ -2,30 +2,37 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+const defualtlatitude = 32.085300;
+const defualtlongitude = 34.781769;
+
 class BackPackItem {
   const BackPackItem({
-    required this.itemID,
+    required this.itemid,
     required this.title,
-    required this.category,
-    required this.userID,
+    required this.categoryid,
+    required this.uid,
     required this.color,
     required this.description,
     required this.location,
     this.size,
     this.price,
-    this.originalPrice,
+    this.originalprice,
+    this.latitude = defualtlatitude,
+    this.longitude = defualtlongitude,
   });
 
-  final int itemID;
-  final String userID;
+  final int itemid;
+  final String uid;
   final String title;
   final Color? color;
   final int? price;
-  final int? originalPrice;
-  final int category;
+  final int? originalprice;
+  final int categoryid;
   final String? description;
   final String? location;
   final String? size;
+  final double latitude;
+  final double longitude;
 
   static Color getRandomColor() {
     final random = Random();
@@ -39,33 +46,36 @@ class BackPackItem {
 
   // from json method
   factory BackPackItem.fromJson(Map<String, dynamic> json) {
-    print(json.toString());
     return BackPackItem(
-      itemID: json['itemid'],
-      userID: json['userid'],
+      itemid: json['itemid'],
+      uid: json['uid'],
       title: json['title'],
       color: Color(int.parse(json['color'])),
       price: json['price'],
-      originalPrice: json['originalprice'],
-      category: json['categoryid'],
+      originalprice: json['originalprice'],
+      categoryid: json['categoryid'],
       description: json['description'],
       location: json['location'],
       size: json['size'],
+      longitude: json['longitude'] ?? defualtlatitude,
+      latitude: json['latitude'] ?? defualtlongitude,
     );
   }
 
   // to json method
   Map<String, dynamic> toJson() {
     return {
-      'userID': userID,
+      'uid': uid,
       'title': title,
       'color': color?.value == null ? 0 : color!.value.toString(),
       'price': price,
-      'originalPrice': originalPrice,
-      'category': category,
+      'originalprice': originalprice,
+      'categoryid': categoryid,
       'description': description,
       'location': location,
       'size': size,
+      'longitude': longitude,
+      'latitude': latitude,
     };
   }
 }
