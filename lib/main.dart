@@ -22,32 +22,28 @@ void main() async {
   runApp(const ProviderScope(child: App()));
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
   @override
-  Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final themeProvider = ref.watch(themeProviderNotifier);
-        return MaterialApp(
-          title: 'Swapit',
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: themeProvider.themeMode,
-          home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (ctx, userSnapshot) {
-              if (userSnapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: SplashScreen());
-              }
-              if (userSnapshot.hasData) {
-                return const TabsScreen();
-              }
-              return const LoginPage();
-            },
-          ),
-        );
-      },
+  Widget build(BuildContext context, ref) {
+    final themeProvider = ref.watch(themeProviderNotifier);
+    return MaterialApp(
+      title: 'Swapit',
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: themeProvider.themeMode,
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if (userSnapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: SplashScreen());
+          }
+          if (userSnapshot.hasData) {
+            return const TabsScreen();
+          }
+          return const LoginPage();
+        },
+      ),
     );
   }
 }

@@ -2,17 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/models/wishlist_item.dart';
 import 'package:swapit_app/providers/user_provider.dart';
-// import '../data/user1_wl.dart';
 import '../models/user.dart';
 import '../services/api.dart';
 
-// router.get("/wishlists/:id", wishListController.getWishList);
-// // create a new wishlist item for a user by id
-// router.post("/wishlists", wishListController.createWishList);
-// // update a wishlist item by id
-// router.put("/wishlists/:id", wishListController.updateWishList);
-// // delete a wishlist item by id
-// router.delete("/wishlists/:id", wishListController.deleteWishList);
 class WishListProvider extends ChangeNotifier {
   final List<WishListItem> _wishList = [];
   final AsyncValue<AppUser> _userAsyncValue;
@@ -29,7 +21,7 @@ class WishListProvider extends ChangeNotifier {
     );
   }
 
-  void fetchWishList(String id) async {
+  Future<void> fetchWishList(String id) async {
     _wishList.clear();
     _wishList.addAll(await Api.getWishList(id));
     notifyListeners();
@@ -61,8 +53,8 @@ class WishListProvider extends ChangeNotifier {
   }
 }
 
-final wishListProvider =
-    ChangeNotifierProvider.autoDispose<WishListProvider>((ref) {
-  final user = ref.watch(userProvider);
-  return WishListProvider(user);
-});
+final wishListProvider = ChangeNotifierProvider<WishListProvider>(
+  (ref) {
+    return WishListProvider(ref.watch(userProvider));
+  },
+);

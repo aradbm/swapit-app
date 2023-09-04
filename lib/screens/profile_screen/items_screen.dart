@@ -4,18 +4,13 @@ import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_form.
 import 'package:swapit_app/screens/profile_screen/wishlist_screen/wishlist_screen.dart';
 import 'backpack_screen/backpack_screen.dart';
 
-class MyItemsScreen extends StatefulWidget {
-  const MyItemsScreen({super.key});
-  @override
-  State<MyItemsScreen> createState() => _MyItemsScreenState();
-}
-
 final List<Tab> myTabs = <Tab>[
   const Tab(text: 'BackPack', icon: Icon(Icons.backpack)),
   const Tab(text: 'WishList', icon: Icon(Icons.list_alt)),
 ];
 
-class _MyItemsScreenState extends State<MyItemsScreen> {
+class MyItemsScreen extends StatelessWidget {
+  const MyItemsScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -61,7 +56,7 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
         ),
         body: const TabBarView(
           children: [
-            BackPackScrreen(),
+            BackPackScreen(),
             WishListScrreen(),
           ],
         ),

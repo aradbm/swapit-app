@@ -3,21 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:swapit_app/screens/profile_screen/items_screen.dart';
 import 'package:swapit_app/screens/profile_screen/settings_screen.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  final TextEditingController _controller = TextEditingController();
-
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
   final user = FirebaseAuth.instance.currentUser!;
-  @override
-  void initState() {
-    super.initState();
-    _controller.text = user.displayName ?? '';
-  }
 
   @override
   Widget build(BuildContext context) {

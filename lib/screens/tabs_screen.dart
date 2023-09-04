@@ -18,10 +18,10 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const ProfileScreen();
+    Widget activePage = ProfileScreen();
 
     activePage = switch (_selectedPageIndex) {
-      0 => const ProfileScreen(),
+      0 => ProfileScreen(),
       1 => const MarketPlaceScreen(),
       2 => const SwapScreen(),
       3 => const ChatScreen(),

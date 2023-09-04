@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:swapit_app/components/category_picker.dart';
+import 'package:swapit_app/components/dropdown_menu.dart';
+import 'package:swapit_app/models/category.dart';
 import '../../../models/user.dart';
 import '../../../models/wishlist_item.dart';
+import '../../../providers/categories_provider.dart';
 import '../../../providers/user_provider.dart';
 import '../../../providers/wishlist_provider.dart';
 import '../../../components/text_form_container.dart';
@@ -21,7 +23,13 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   final _itemSizeController = TextEditingController();
   final _itemMinPriceController = TextEditingController();
   final _itemMaxPriceController = TextEditingController();
-  final _itemSizeValues = <String>['Small', 'Medium', 'Large', 'X-Large'];
+  final _itemSizeValues = <String>[
+    'none',
+    'Small',
+    'Medium',
+    'Large',
+    'X-Large'
+  ];
 
   @override
   void initState() {
@@ -39,6 +47,8 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   Widget build(BuildContext context) {
     final wishlistProvider = ref.watch(wishListProvider);
     final AsyncValue<AppUser> user = ref.watch(userProvider);
+    final AsyncValue<List<ItemCategory>> categories =
+        ref.watch(categoriesProvider);
 
     // add item function
     void addRandomItem() {
@@ -49,7 +59,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
           loading: () => '',
           error: (err, stack) => '',
         ),
-        categoryid: 1,
+        categoryid: 2,
         color: WishListItem.getRandomColor(),
         size: 'none',
         minprice: 0,
@@ -122,34 +132,38 @@ class _WishListFormState extends ConsumerState<EditWishList> {
               TextFormContainer(
                   itemNameController: _itemDescriptionController,
                   title: 'Item Description'),
-              CategoryPicker(onChanged: (value) {
-                setState(() {
-                  _itemCategoryController.text = value!.categoryid.toString();
-                });
-              }),
-              Container(
-                height: 50,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(20),
+              const SizedBox(height: 10),
+              ItemsPicker(
+                items: categories.when(
+                  data: (value) => value
+                      .map((category) => category.name)
+                      .toList()
+                      .cast<String>(),
+                  loading: () => const ['Loading...'],
+                  error: (error, stackTrace) => const ['Error'],
                 ),
-                child: DropdownButtonFormField(
-                    iconSize: 36,
-                    elevation: 16,
-                    menuMaxHeight: 300,
-                    style: const TextStyle(color: Colors.black, fontSize: 18),
-                    icon: const Icon(Icons.arrow_drop_down),
-                    value: _itemSizeValues.first,
-                    items: _itemSizeValues.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      _itemSizeController.text = value.toString();
-                    }),
+                onChanged: (value) {
+                  _itemCategoryController.text = value.toString();
+                  print(_itemCategoryController.text);
+                },
+                item: widget.item == null
+                    ? null
+                    : categories.when(
+                        data: (value) => value
+                            .firstWhere((category) =>
+                                category.categoryid == widget.item!.categoryid)
+                            .name,
+                        loading: () => 'Loading...',
+                        error: (error, stackTrace) => 'Error',
+                      ),
+              ),
+              const SizedBox(height: 10),
+              ItemsPicker(
+                items: _itemSizeValues,
+                onChanged: (value) {
+                  _itemSizeController.text = value.toString();
+                },
+                item: widget.item == null ? null : widget.item!.size,
               ),
               const SizedBox(height: 10),
               Row(

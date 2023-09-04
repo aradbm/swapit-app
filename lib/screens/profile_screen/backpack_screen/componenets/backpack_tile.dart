@@ -49,7 +49,7 @@ class BackPackTile extends StatelessWidget {
                     height: 200,
                     width: 200,
                     decoration: BoxDecoration(
-                      color: item.color,
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
@@ -59,14 +59,17 @@ class BackPackTile extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: item.color?.withOpacity(0.8),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Text(
                         '\$${item.price}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: item.color!.computeLuminance() > 0.5
+                              ? Colors.black
+                              : Colors.white,
                         ),
                       ),
                     ),

@@ -48,8 +48,7 @@ class BackPackProvider extends ChangeNotifier {
   }
 }
 
-final backPackProvider =
-    ChangeNotifierProvider.autoDispose<BackPackProvider>((ref) {
+final backPackProvider = ChangeNotifierProvider<BackPackProvider>((ref) {
   final user = ref.watch(userProvider);
   return BackPackProvider(user);
 });
