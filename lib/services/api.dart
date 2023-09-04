@@ -42,7 +42,7 @@ class Api {
     try {
       var response = await http.post(url,
           headers: {"Content-Type": "application/json"}, body: body);
-      return response.body;
+      return jsonDecode(response.body) as int;
     } catch (e) {
       // print(e);
     }
@@ -56,7 +56,7 @@ class Api {
     try {
       var response = await http.put(url,
           headers: {"Content-Type": "application/json"}, body: body);
-      return response.body;
+      return jsonDecode(response.body) as int;
     } catch (e) {
       // print(e);
     }
@@ -98,24 +98,24 @@ class Api {
     try {
       var response = await http.post(url,
           headers: {"Content-Type": "application/json"}, body: body);
-      return response.body;
+      return jsonDecode(response.body) as int;
     } catch (e) {
       // print(e);
     }
   }
 
-  static Future<String> updateWishList(WishListItem item) async {
+  static updateWishList(WishListItem item) async {
     var url = Uri.parse("$BASE_URL/wishlists/${item.itemid}");
     String body = jsonEncode(item.toJson());
 
     try {
       var response = await http.put(url,
           headers: {"Content-Type": "application/json"}, body: body);
-      return response.body;
+      int id = jsonDecode(response.body) as int;
+      return id;
     } catch (e) {
       // print(e);
     }
-
     return "";
   }
 

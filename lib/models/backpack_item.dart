@@ -6,14 +6,13 @@ const defualtlatitude = 32.085300;
 const defualtlongitude = 34.781769;
 
 class BackPackItem {
-  const BackPackItem({
+  BackPackItem({
     required this.itemid,
     required this.title,
     required this.categoryid,
     required this.uid,
     required this.color,
     required this.description,
-    required this.location,
     this.size,
     this.price,
     this.originalprice,
@@ -21,7 +20,7 @@ class BackPackItem {
     this.longitude = defualtlongitude,
   });
 
-  final int itemid;
+  int itemid;
   final String uid;
   final String title;
   final Color? color;
@@ -29,7 +28,6 @@ class BackPackItem {
   final int? originalprice;
   final int categoryid;
   final String? description;
-  final String? location;
   final String? size;
   final double latitude;
   final double longitude;
@@ -44,6 +42,8 @@ class BackPackItem {
     );
   }
 
+  set setItemID(int id) => itemid = id;
+
   // from json method
   factory BackPackItem.fromJson(Map<String, dynamic> json) {
     return BackPackItem(
@@ -55,7 +55,6 @@ class BackPackItem {
       originalprice: json['originalprice'],
       categoryid: json['categoryid'],
       description: json['description'],
-      location: json['location'],
       size: json['size'],
       longitude: json['longitude'] ?? defualtlatitude,
       latitude: json['latitude'] ?? defualtlongitude,
@@ -72,7 +71,6 @@ class BackPackItem {
       'originalprice': originalprice,
       'categoryid': categoryid,
       'description': description,
-      'location': location,
       'size': size,
       'longitude': longitude,
       'latitude': latitude,

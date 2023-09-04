@@ -17,17 +17,6 @@ class AddBackPackItem extends ConsumerStatefulWidget {
 enum Sized { small, medium, large, xlarge, none }
 
 class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
-  // final int itemID;
-  // final String userID;
-  // final String title;
-  // final Color color;
-  // final int? price;
-  // final int? originalPrice;
-  // final int category;
-  // final String? description;
-  // final String? location;
-  // final String? size;
-
   final _formKey = GlobalKey<FormState>();
   final _itemTitleController = TextEditingController();
   final _itemColorController = TextEditingController();
@@ -63,6 +52,37 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
   @override
   Widget build(BuildContext context) {
     final AsyncValue<AppUser> user = ref.watch(userProvider);
+    void addOrEditItem() {
+      if (_formKey.currentState!.validate()) {
+        final item = BackPackItem(
+          itemid: widget.item?.itemid ?? 0,
+          uid: user.when(
+            data: (user) => user.uid,
+            loading: () => '',
+            error: (err, stack) => '',
+          ),
+          title: _itemTitleController.text,
+          color: BackPackItem.getRandomColor(),
+          price: int.parse(_itemPriceConroller.text),
+          originalprice: int.parse(_itemOriginalPriceController.text),
+          categoryid: int.parse(_itemCategoryController.text),
+          description: _itemDescriptionController.text,
+          size: _itemSizeController.text,
+        );
+        ref.read(backPackProvider).addItem(item);
+        // show snackbar if successful
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              widget.item == null ? 'Item Added' : 'Item Edited',
+            ),
+            duration: const Duration(seconds: 1),
+          ),
+        );
+
+        Navigator.pop(context);
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -113,37 +133,15 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                   onChanged: (value) {
                     _itemSizeController.text = value.toString();
                   }),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final item = BackPackItem(
-                      itemid: widget.item?.itemid ?? 0,
-                      uid: user.when(
-                        data: (user) => user.uid,
-                        loading: () => '',
-                        error: (err, stack) => '',
-                      ),
-                      title: _itemTitleController.text,
-                      color: BackPackItem.getRandomColor(),
-                      price: int.parse(_itemPriceConroller.text),
-                      originalprice:
-                          int.parse(_itemOriginalPriceController.text),
-                      categoryid: int.parse(_itemCategoryController.text),
-                      description: _itemDescriptionController.text,
-                      size: _itemSizeController.text,
-                      location: 'none',
-                    );
-                    ref.read(backPackProvider).addItem(item);
-                    Navigator.pop(context);
-                  }
-                },
-                child: const Text('Save'),
+              FilledButton(
+                onPressed: addOrEditItem,
+                child: Text(widget.item == null ? 'Add Item' : 'Edit Item'),
               ),
               // add random item button, not elevated button
               FilledButton(
                 onPressed: () {
                   final item = BackPackItem(
-                    itemid: widget.item?.itemid ?? 0,
+                    itemid: widget.item?.itemid ?? -1,
                     uid: user.when(
                       data: (user) => user.uid,
                       loading: () => '',
@@ -156,7 +154,6 @@ class _AddBackPackItemState extends ConsumerState<AddBackPackItem> {
                     categoryid: 12,
                     description: 'Random Description',
                     size: 'none',
-                    location: 'none',
                   );
                   ref.read(backPackProvider).addItem(item);
                   Navigator.pop(context);

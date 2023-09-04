@@ -35,10 +35,10 @@ class WishListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addItem(WishListItem item) {
+  void addItem(WishListItem item) async {
+    int id = await Api.uploadWishList(item);
+    item.setItemID = id;
     _wishList.add(item);
-    Api.uploadWishList(item);
-    // item.itemID = int.parse(id.toString()); // TODO: fix this
     notifyListeners();
   }
 
@@ -48,10 +48,11 @@ class WishListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateItem(WishListItem item) {
-    Api.updateWishList(item);
-    _wishList[_wishList
-        .indexWhere((element) => element.itemid == item.itemid)] = item;
+  void updateItem(WishListItem item) async {
+    int id = await Api.updateWishList(item);
+    item.setItemID = id;
+    int index = _wishList.indexWhere((element) => element.itemid == id);
+    _wishList[index] = item;
     notifyListeners();
   }
 

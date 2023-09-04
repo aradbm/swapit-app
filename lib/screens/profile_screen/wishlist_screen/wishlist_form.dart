@@ -40,6 +40,67 @@ class _WishListFormState extends ConsumerState<EditWishList> {
     final wishlistProvider = ref.watch(wishListProvider);
     final AsyncValue<AppUser> user = ref.watch(userProvider);
 
+    // add item function
+    void addRandomItem() {
+      final item = WishListItem(
+        itemid: widget.item?.itemid ?? wishlistProvider.wishList.length + 1,
+        uid: user.when(
+          data: (user) => user.uid,
+          loading: () => '',
+          error: (err, stack) => '',
+        ),
+        categoryid: 1,
+        color: WishListItem.getRandomColor(),
+        size: 'none',
+        minprice: 0,
+        maxprice: 0,
+        description: 'Random Description',
+      );
+      wishlistProvider.addItem(item);
+      Navigator.pop(context);
+    }
+
+    // update or add item function
+    void updateOrAddItem() {
+      if (_formKey.currentState!.validate()) {
+        final item = WishListItem(
+          itemid: widget.item?.itemid ?? -1,
+          uid: user.when(
+            data: (user) => user.uid,
+            loading: () => '',
+            error: (error, stackTrace) => '',
+          ),
+          color: Colors.red,
+          categoryid: int.parse(_itemCategoryController.text),
+          size: _itemSizeController.text == ''
+              ? 'small'
+              : _itemSizeController.text,
+          minprice: int.parse(_itemMinPriceController.text),
+          maxprice: int.parse(_itemMaxPriceController.text),
+          description: _itemDescriptionController.text,
+        );
+
+        if (item.uid == '') {
+          return;
+          // pop snackbar
+        }
+
+        // check if its an edit or add first time
+        if (widget.item != null) {
+          wishlistProvider.updateItem(item);
+        } else {
+          wishlistProvider.addItem(item);
+        }
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please fill in all fields'),
+          ),
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add or Edit Wish List Item'),
@@ -90,6 +151,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                       _itemSizeController.text = value.toString();
                     }),
               ),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Flexible(
@@ -103,10 +165,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                       child: TextFormField(
                         controller: _itemMinPriceController,
                         decoration: const InputDecoration(
-                          labelText: 'Min Price',
-                          hintText: 'Enter Min Price here',
-                          icon: Icon(Icons.money),
-                        ),
+                            labelText: 'Min Price', icon: Icon(Icons.money)),
                         style: const TextStyle(fontSize: 15),
                         textInputAction: TextInputAction.next,
                         validator: (value) {
@@ -133,10 +192,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                       child: TextFormField(
                         controller: _itemMaxPriceController,
                         decoration: const InputDecoration(
-                          labelText: 'Max Price',
-                          hintText: 'Enter Max Price here',
-                          icon: Icon(Icons.money),
-                        ),
+                            labelText: 'Max Price', icon: Icon(Icons.money)),
                         style: const TextStyle(fontSize: 15),
                         textInputAction: TextInputAction.next,
                         validator: (value) {
@@ -155,70 +211,9 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final item = WishListItem(
-                      itemid: widget.item?.itemid ?? 0,
-                      uid: user.when(
-                        data: (user) => user.uid,
-                        loading: () => '',
-                        error: (error, stackTrace) => '',
-                      ),
-                      color: Colors.red,
-                      categoryid: int.parse(_itemCategoryController.text),
-                      size: _itemSizeController.text == ''
-                          ? 'small'
-                          : _itemSizeController.text,
-                      minprice: int.parse(_itemMinPriceController.text),
-                      maxprice: int.parse(_itemMaxPriceController.text),
-                      description: _itemDescriptionController.text,
-                    );
-
-                    if (item.uid == '') {
-                      return;
-                      // pop snackbar
-                    }
-
-                    // check if its an edit or add first time
-                    if (widget.item != null) {
-                      wishlistProvider.updateItem(item);
-                    } else {
-                      wishlistProvider.addItem(item);
-                    }
-                    Navigator.pop(context);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all fields'),
-                      ),
-                    );
-                  }
-                },
-                child: const Text('Submit'),
-              ),
-              // add random item button, not elevated button
+                  onPressed: updateOrAddItem, child: const Text('Submit')),
               FilledButton(
-                onPressed: () {
-                  final item = WishListItem(
-                    itemid: widget.item?.itemid ??
-                        wishlistProvider.wishList.length + 1,
-                    uid: user.when(
-                      data: (user) => user.uid,
-                      loading: () => '',
-                      error: (err, stack) => '',
-                    ),
-                    categoryid: 1,
-                    color: WishListItem.getRandomColor(),
-                    size: 'none',
-                    minprice: 0,
-                    maxprice: 0,
-                    description: 'Random Description',
-                  );
-                  wishlistProvider.addItem(item);
-                  Navigator.pop(context);
-                },
-                child: const Text('Add Random Item'),
-              ),
+                  onPressed: addRandomItem, child: const Text(' Random Item')),
             ],
           ),
         ),

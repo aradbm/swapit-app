@@ -6,7 +6,7 @@ const defualtlatitude = 32.085300;
 const defualtlongitude = 34.781769;
 
 class WishListItem {
-  const WishListItem({
+  WishListItem({
     required this.itemid,
     required this.uid,
     required this.categoryid,
@@ -19,7 +19,7 @@ class WishListItem {
     this.longitude = defualtlongitude,
   });
 
-  final int itemid;
+  int itemid;
   final String uid;
   final int categoryid;
   final Color color;
@@ -42,8 +42,7 @@ class WishListItem {
   }
 
   // setter for itemID
-  set itemid(int id) => itemid = id;
-
+  set setItemID(int id) => itemid = id;
   // to json and from json methods
   Map<String, dynamic> toJson() => {
         'itemid': itemid,
