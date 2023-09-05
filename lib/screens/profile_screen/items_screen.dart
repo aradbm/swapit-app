@@ -25,7 +25,7 @@ class MyItemsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AddBackPackItem(),
+                    builder: (context) => const EditBackPackItem(),
                   ),
                 );
               },

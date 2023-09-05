@@ -12,7 +12,7 @@ class BackPackTile extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (ctx) => AddBackPackItem(item: item),
+            builder: (ctx) => EditBackPackItem(item: item),
           ),
         );
       },

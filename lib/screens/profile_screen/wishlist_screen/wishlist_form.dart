@@ -16,6 +16,8 @@ class EditWishList extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _WishListFormState();
 }
 
+const _itemSizeValues = <String>['None', 'Small', 'Medium', 'Large', 'X-Large'];
+
 class _WishListFormState extends ConsumerState<EditWishList> {
   final _formKey = GlobalKey<FormState>();
   final _itemDescriptionController = TextEditingController();
@@ -23,21 +25,15 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   final _itemSizeController = TextEditingController();
   final _itemMinPriceController = TextEditingController();
   final _itemMaxPriceController = TextEditingController();
-  final _itemSizeValues = <String>[
-    'none',
-    'Small',
-    'Medium',
-    'Large',
-    'X-Large'
-  ];
 
   @override
   void initState() {
     super.initState();
     if (widget.item != null) {
       _itemDescriptionController.text = widget.item!.description ?? '';
-      _itemCategoryController.text = widget.item!.categoryid.toString();
-      _itemSizeController.text = widget.item!.size ?? 'none';
+      _itemCategoryController.text =
+          widget.item!.categoryid.toString(); // to fix
+      _itemSizeController.text = widget.item!.size ?? 'None';
       _itemMinPriceController.text = widget.item!.minprice.toString();
       _itemMaxPriceController.text = widget.item!.maxprice.toString();
     }
@@ -45,6 +41,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
 
   @override
   Widget build(BuildContext context) {
+    // providers
     final wishlistProvider = ref.watch(wishListProvider);
     final AsyncValue<AppUser> user = ref.watch(userProvider);
     final AsyncValue<List<ItemCategory>> categories =
@@ -53,7 +50,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
     // add item function
     void addRandomItem() {
       final item = WishListItem(
-        itemid: widget.item?.itemid ?? wishlistProvider.wishList.length + 1,
+        itemid: widget.item?.itemid ?? -1,
         uid: user.when(
           data: (user) => user.uid,
           loading: () => '',
@@ -61,7 +58,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
         ),
         categoryid: 2,
         color: WishListItem.getRandomColor(),
-        size: 'none',
+        size: 'None',
         minprice: 0,
         maxprice: 0,
         description: 'Random Description',
@@ -80,10 +77,20 @@ class _WishListFormState extends ConsumerState<EditWishList> {
             loading: () => '',
             error: (error, stackTrace) => '',
           ),
-          color: Colors.red,
-          categoryid: int.parse(_itemCategoryController.text),
+          color: widget.item?.color ?? WishListItem.getRandomColor(),
+          // find in categories list where the name is the same as the text in the controller
+          categoryid: categories.when(
+            data: (value) => value
+                .firstWhere((element) =>
+                    element.name == _itemCategoryController.text ||
+                    element.categoryid.toString() ==
+                        _itemCategoryController.text)
+                .categoryid,
+            loading: () => 0,
+            error: (error, stackTrace) => 0,
+          ),
           size: _itemSizeController.text == ''
-              ? 'small'
+              ? 'Small'
               : _itemSizeController.text,
           minprice: int.parse(_itemMinPriceController.text),
           maxprice: int.parse(_itemMaxPriceController.text),
@@ -101,6 +108,15 @@ class _WishListFormState extends ConsumerState<EditWishList> {
         } else {
           wishlistProvider.addItem(item);
         }
+        // show snackbar if successful
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              widget.item == null ? 'Item Added' : 'Item Edited',
+            ),
+            duration: const Duration(seconds: 1),
+          ),
+        );
         Navigator.pop(context);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -133,29 +149,21 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                   itemNameController: _itemDescriptionController,
                   title: 'Item Description'),
               const SizedBox(height: 10),
-              ItemsPicker(
-                items: categories.when(
-                  data: (value) => value
-                      .map((category) => category.name)
-                      .toList()
-                      .cast<String>(),
-                  loading: () => const ['Loading...'],
-                  error: (error, stackTrace) => const ['Error'],
+              categories.when(
+                data: (value) => ItemsPicker(
+                  items: value.map((e) => e.name).toList(),
+                  onChanged: (value) {
+                    _itemCategoryController.text = value.toString();
+                  },
+                  item: widget.item == null
+                      ? null
+                      : value
+                          .firstWhere((element) =>
+                              element.categoryid == widget.item!.categoryid)
+                          .name,
                 ),
-                onChanged: (value) {
-                  _itemCategoryController.text = value.toString();
-                  print(_itemCategoryController.text);
-                },
-                item: widget.item == null
-                    ? null
-                    : categories.when(
-                        data: (value) => value
-                            .firstWhere((category) =>
-                                category.categoryid == widget.item!.categoryid)
-                            .name,
-                        loading: () => 'Loading...',
-                        error: (error, stackTrace) => 'Error',
-                      ),
+                loading: () => const CircularProgressIndicator(),
+                error: (error, stackTrace) => const Text('Error'),
               ),
               const SizedBox(height: 10),
               ItemsPicker(
