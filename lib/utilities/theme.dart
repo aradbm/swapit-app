@@ -1,110 +1,123 @@
 import 'package:flutter/material.dart';
 
-// Unique Light Theme
+// Light Theme Colors (Pinky Purple, Green, and Matte Black that blends well with the background)
+const Color lightScaffoldBackgroundColor = Color(0xFFF3F4F6);
+const Color lightAppBarColor = Color.fromARGB(255, 255, 79, 144);
+const Color lightIconColor = Color(0xFF2E2E2E);
+const Color lightPrimaryColor = Color(0xFFD81B60);
+const Color lightOnPrimaryColor = Color(0xFFFFFFFF);
+const Color lightSecondaryColor = Color(0xFF66BB6A);
+const Color lightOnSecondaryColor = Color(0xFFFFFFFF);
+const Color lightCardColor = Color(0xFFF1F1F1);
+const Color lightButtonColor = Color(0xFF2E2E2E);
+const Color lightInputFillColor = Color(0xFFF1F1F1);
+const Color lightSnackBarBackgroundColor = Color(0xFF66BB6A);
+const Color lightTabLabelColor = Color(0xFF2E2E2E);
+const Color lightTabUnselectedLabelColor = Color.fromARGB(255, 255, 255, 255);
+
+// Dark Theme Basic Colors
+const Color darkScaffoldBackgroundColor = Color(0xFF121212); // Near Black
+const Color darkAppBarColor = Color(0xFF1E1E1E); // Dark gray
+const Color darkIconColor = Color(0xFFBBBBBB); // Mid gray
+const Color darkPrimaryColor = Color(0xFF2E2E2E); // Slightly darker gray
+const Color darkOnPrimaryColor = Color(0xFFFFFFFF); // White
+const Color darkSecondaryColor = Color(0xFF373737); // Even darker gray
+const Color darkOnSecondaryColor = Color(0xFFFFFFFF); // White
+const Color darkCardColor = Color(0xFF1E1E1E); // Dark gray
+const Color darkButtonColor = Color(0xFF2E2E2E); // Slightly darker gray
+const Color darkInputFillColor = Color(0xFF1E1E1E); // Dark gray
+const Color darkSnackBarBackgroundColor = Color(0xFF373737); // Even darker gray
+const Color darkTabLabelColor = Color(0xFFFFFFFF); // White
+const Color darkTabUnselectedLabelColor = Color(0xFFBBBBBB); // Mid gray
+
+// Updated Light Theme
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  scaffoldBackgroundColor: const Color(0xFFF7F2E0),
+  scaffoldBackgroundColor: lightScaffoldBackgroundColor,
   appBarTheme: const AppBarTheme(
-    color: Color(0xFFFFA07A),
+    color: lightAppBarColor,
     iconTheme: IconThemeData(
-      color: Color(0xFF2E3440),
+      color: lightIconColor,
     ),
   ),
   colorScheme: const ColorScheme.light(
-    primary: Color(0xFFFFA07A),
-    onPrimary: Color(0xFF2E3440),
-    secondary: Color(0xFF48D1CC),
-    onSecondary: Color(0xFF2E3440),
+    primary: lightPrimaryColor,
+    onPrimary: lightOnPrimaryColor,
+    secondary: lightSecondaryColor,
+    onSecondary: lightOnSecondaryColor,
   ),
   cardTheme: const CardTheme(
-    color: Color(0xFFEDEDED),
+    color: lightCardColor,
   ),
   iconTheme: const IconThemeData(
-    color: Color(0xFF2E3440),
+    color: lightIconColor,
   ),
   textTheme: const TextTheme().apply(
-    bodyColor: const Color(0xFF2E3440),
-    displayColor: const Color(0xFF2E3440),
+    bodyColor: lightIconColor,
+    displayColor: lightIconColor,
   ),
-
-  // Button Theme
   buttonTheme: const ButtonThemeData(
-    buttonColor: Color(0xFFFFA07A),
+    buttonColor: lightButtonColor,
     textTheme: ButtonTextTheme.primary,
   ),
-
-  // Input Decoration Theme
   inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Color(0xFFEDEDED),
+    fillColor: lightInputFillColor,
     filled: true,
   ),
-
-  // SnackBar Theme
   snackBarTheme: const SnackBarThemeData(
-    backgroundColor: Color(0xFF48D1CC),
+    backgroundColor: lightSnackBarBackgroundColor,
     contentTextStyle: TextStyle(color: Color(0xFFFFFFFF)),
   ),
-
-  // TabBar Theme
   tabBarTheme: const TabBarTheme(
-    labelColor: Color(0xFF2E3440),
-    unselectedLabelColor: Color(0xFF6C757D),
+    labelColor: lightTabLabelColor,
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    backgroundColor: Color(0xFFFFA07A),
-    selectedItemColor: Color(0xFF2E3440),
-    unselectedItemColor: Color(0xFF2E3440),
+    backgroundColor: lightAppBarColor,
+    selectedItemColor: lightIconColor,
+    unselectedItemColor: lightTabUnselectedLabelColor,
   ),
 );
 
-// Unique Dark Theme
+// Updated Dark Theme
 final ThemeData darkTheme = ThemeData(
   useMaterial3: true,
-  scaffoldBackgroundColor: const Color(0xFF2E3440),
+  scaffoldBackgroundColor: darkScaffoldBackgroundColor,
   appBarTheme: const AppBarTheme(
-    color: Color(0xFF00CED1),
+    color: darkAppBarColor,
     iconTheme: IconThemeData(
-      color: Color(0xFFF7F2E0),
+      color: darkIconColor,
     ),
   ),
   colorScheme: const ColorScheme.dark(
-    primary: Color(0xFF00CED1),
-    onPrimary: Color(0xFFF7F2E0),
-    secondary: Color(0xFF8A2BE2),
-    onSecondary: Color(0xFFF7F2E0),
+    primary: darkPrimaryColor,
+    onPrimary: darkOnPrimaryColor,
+    secondary: darkSecondaryColor,
+    onSecondary: darkOnSecondaryColor,
   ),
   cardTheme: const CardTheme(
-    color: Color(0xFF3B4252),
+    color: darkCardColor,
   ),
   iconTheme: const IconThemeData(
-    color: Color(0xFF88C0D0),
+    color: darkIconColor,
   ),
   textTheme: const TextTheme().apply(
-    bodyColor: const Color(0xFFECEFF4),
-    displayColor: const Color(0xFFECEFF4),
+    bodyColor: darkIconColor,
+    displayColor: darkIconColor,
   ),
-
-  // Button Theme
   buttonTheme: const ButtonThemeData(
-    buttonColor: Color(0xFF00CED1),
+    buttonColor: darkButtonColor,
     textTheme: ButtonTextTheme.primary,
   ),
-
-  // Input Decoration Theme
   inputDecorationTheme: const InputDecorationTheme(
-    fillColor: Color(0xFF3B4252),
+    fillColor: darkInputFillColor,
     filled: true,
   ),
-
-  // SnackBar Theme
   snackBarTheme: const SnackBarThemeData(
-    backgroundColor: Color(0xFF8A2BE2),
+    backgroundColor: darkSnackBarBackgroundColor,
     contentTextStyle: TextStyle(color: Color(0xFFFFFFFF)),
   ),
-
-  // TabBar Theme
   tabBarTheme: const TabBarTheme(
-    labelColor: Color(0xFFECEFF4),
-    unselectedLabelColor: Color(0xFF88C0D0),
+    labelColor: darkTabLabelColor,
+    unselectedLabelColor: darkTabUnselectedLabelColor,
   ),
 );

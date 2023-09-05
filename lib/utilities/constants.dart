@@ -21,3 +21,9 @@ const List<Color> fixedColors = [
 
 const defualtlatitude = 32.085300;
 const defualtlongitude = 34.781769;
+
+
+const double containerHeight = 70.0;
+const double borderRadius = 20.0;
+const double padding = 10.0;
+const double fontSize = 15.0;

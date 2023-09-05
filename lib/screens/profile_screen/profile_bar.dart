@@ -12,16 +12,16 @@ class ProfileScreen extends StatelessWidget {
     final Widget profileAvatar;
     if (user.photoURL == null) {
       profileAvatar = const Padding(
-        padding: EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(4.0),
         child: CircleAvatar(
           radius: 50,
           backgroundColor: Colors.white,
-          child: Icon(Icons.person, size: 50, color: Colors.grey),
+          child: Icon(Icons.person, size: 45, color: Colors.grey),
         ),
       );
     } else {
       profileAvatar = Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(4.0),
         child: CircleAvatar(
             radius: 50,
             backgroundColor: Theme.of(context).primaryColor,

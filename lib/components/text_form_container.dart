@@ -16,7 +16,7 @@ class TextFormContainer extends StatelessWidget {
       margin: const EdgeInsets.all(6),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 3),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         border: Border.all(
           color: Colors.blueGrey[100]!,
           width: 2,

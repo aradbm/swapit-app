@@ -1,54 +1,33 @@
-import 'package:flutter/cupertino.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:swapit_app/screens/swap_screens/card.dart';
+import '../../providers/swapcards_provider.dart';
 
-class ItemsSwap extends StatefulWidget {
+class ItemsSwap extends ConsumerWidget {
   const ItemsSwap({super.key});
 
   @override
-  State<ItemsSwap> createState() => _ItemsSwapState();
-}
+  Widget build(BuildContext context, ref) {
+    final swapCards = ref.watch(swapCardsProvider).swapCards;
 
-class _ItemsSwapState extends State<ItemsSwap> {
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: AppinioSwiper(
-          swipeOptions: const AppinioSwipeOptions.only(
-            top: false,
-            bottom: false,
-            left: true,
-            right: true,
-          ),
-          backgroundCardsCount: 1,
-          cardsCount: 20,
-          onSwiping: (AppinioSwiperDirection direction) {
-            // print(direction.index); // 1 - left, 2 - right
-          },
-          cardsBuilder: (BuildContext context, int index) {
-            return Container(
-              foregroundDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withOpacity(0.5),
-                  ],
-                ),
-              ),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Theme.of(context).primaryColor,
-              ),
-              child: Text(index.toString()),
-            );
-          },
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.6,
+      child: AppinioSwiper(
+        swipeOptions: const AppinioSwipeOptions.only(
+          top: false,
+          bottom: false,
+          left: true,
+          right: true,
         ),
+        backgroundCardsCount: 1,
+        cardsCount: swapCards.length,
+        onSwiping: (AppinioSwiperDirection direction) {
+          // print(direction.index); // 1 - left, 2 - right
+        },
+        cardsBuilder: (BuildContext context, int index) {
+          return SwapCardUI(index: index, card: swapCards[index]);
+        },
       ),
     );
   }

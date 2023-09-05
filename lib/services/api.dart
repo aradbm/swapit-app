@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:swapit_app/models/backpack_item.dart';
 import 'package:swapit_app/models/wishlist_item.dart';
 
+import '../models/swap_card.dart';
 import '../models/user.dart';
 
 class Api {
@@ -127,6 +128,19 @@ class Api {
       return response.body;
     } catch (e) {
       // print(e);
+    }
+  }
+
+  static getSwapCards(String uid) async {
+    var url = Uri.parse("$BASE_URL/swapcards/$uid");
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      return (jsonDecode(response.body) as List)
+          .map((e) => SwapCard.fromJson(e))
+          .toList();
+    } else {
+      // return epty list of items
+      return <SwapCard>[];
     }
   }
 }

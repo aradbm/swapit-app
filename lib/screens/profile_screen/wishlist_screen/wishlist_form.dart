@@ -9,6 +9,7 @@ import '../../../providers/user_provider.dart';
 import '../../../providers/wishlist_provider.dart';
 import '../../../components/text_form_container.dart';
 import '../../../utilities/constants.dart';
+import '../../../components/price_input_field.dart';
 
 class EditWishList extends ConsumerStatefulWidget {
   const EditWishList({super.key, this.item});
@@ -212,59 +213,13 @@ class _WishListFormState extends ConsumerState<EditWishList> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Flexible(
-                    child: Container(
-                      height: 70,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 255, 144, 144),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: TextFormField(
-                        controller: _itemMinPriceController,
-                        decoration: const InputDecoration(
-                            labelText: 'Min Price', icon: Icon(Icons.money)),
-                        style: const TextStyle(fontSize: 15),
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please a price';
-                          }
-                          if (double.tryParse(value) == null ||
-                              double.tryParse(value)! < 0) {
-                            return 'Please enter a valid number';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
+                  PriceInput(
+                    itemMinPriceController: _itemMinPriceController,
+                    title: 'Min Price',
                   ),
-                  Flexible(
-                    child: Container(
-                      height: 70,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 255, 144, 144),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: TextFormField(
-                        controller: _itemMaxPriceController,
-                        decoration: const InputDecoration(
-                            labelText: 'Max Price', icon: Icon(Icons.money)),
-                        style: const TextStyle(fontSize: 15),
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please a price';
-                          }
-                          if (double.tryParse(value) == null ||
-                              double.tryParse(value)! < 0) {
-                            return 'Please enter a valid number';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
+                  PriceInput(
+                    itemMinPriceController: _itemMaxPriceController,
+                    title: 'Max Price',
                   ),
                 ],
               ),
