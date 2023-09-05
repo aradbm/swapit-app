@@ -35,16 +35,6 @@ class BackPackTile extends StatelessWidget {
             Flexible(
               child: Stack(
                 children: [
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(30),
-                  //   child: Image(
-                  //     image: AssetImage(item.image),
-                  //     fit: BoxFit.cover,
-                  //     height: 200,
-                  //     width: 200,
-                  //   ),
-                  // ),
-                  // container with item.color
                   Container(
                     height: 200,
                     width: 200,
@@ -59,7 +49,7 @@ class BackPackTile extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: item.color?.withOpacity(0.8),
+                        color: item.color?.withOpacity(0.85),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Text(

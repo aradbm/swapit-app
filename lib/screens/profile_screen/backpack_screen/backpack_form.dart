@@ -8,6 +8,7 @@ import '../../../models/user.dart';
 import '../../../providers/backpack_provider.dart';
 import '../../../components/text_form_container.dart';
 import '../../../providers/categories_provider.dart';
+import '../../../utilities/constants.dart';
 
 class EditBackPackItem extends ConsumerStatefulWidget {
   const EditBackPackItem({this.item, super.key});
@@ -15,8 +16,6 @@ class EditBackPackItem extends ConsumerStatefulWidget {
   @override
   ConsumerState<EditBackPackItem> createState() => _AddBackPackItemState();
 }
-
-const _itemSizeValues = <String>['None', 'Small', 'Medium', 'Large', 'X-Large'];
 
 class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
   final _formKey = GlobalKey<FormState>();
@@ -27,6 +26,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
   final _itemDescriptionController = TextEditingController();
   final _itemCategoryController = TextEditingController();
   final _itemSizeController = TextEditingController();
+  Color? selectedColor;
 
   @override
   void initState() {
@@ -40,6 +40,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
       _itemCategoryController.text =
           widget.item!.categoryid.toString(); // to fix
       _itemSizeController.text = widget.item!.size ?? 'None';
+      selectedColor = widget.item!.color;
     }
   }
 
@@ -82,7 +83,9 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
             error: (err, stack) => '',
           ),
           title: _itemTitleController.text,
-          color: widget.item?.color ?? BackPackItem.getRandomColor(),
+          color: selectedColor ??
+              widget.item?.color ??
+              BackPackItem.getRandomColor(),
           price: int.parse(_itemPriceConroller.text),
           originalprice: int.parse(_itemOriginalPriceController.text),
           categoryid: categories.when(
@@ -130,6 +133,39 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
           ),
         );
       }
+    }
+
+    Future<void> selectColor(BuildContext context) async {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SizedBox(
+              width: 300,
+              height: 500,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemCount: fixedColors.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = fixedColors[index];
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      color: fixedColors[index],
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
+      );
     }
 
     return Scaffold(
@@ -181,13 +217,37 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
                 loading: () => const CircularProgressIndicator(),
                 error: (error, stackTrace) => const Text('Error'),
               ),
+              const SizedBox(height: 8),
               ItemsPicker(
-                items: _itemSizeValues,
+                items: itemSizeValues,
                 onChanged: (value) {
                   _itemSizeController.text = value.toString();
                 },
                 item: widget.item == null ? null : widget.item!.size,
               ),
+              const SizedBox(height: 8),
+
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                color: Colors.white,
+                child: Row(
+                  children: [
+                    TextButton(
+                        onPressed: () => selectColor(context),
+                        child: const Text('Select Color',
+                            style: TextStyle(color: Colors.black))),
+                    const SizedBox(width: 20),
+                    Container(
+                      width: 50,
+                      height: 50,
+                      color: selectedColor ?? Colors.transparent,
+                      child:
+                          selectedColor == null ? const Text("No color") : null,
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
               FilledButton(
                 onPressed: updateOrAddItem,
                 child: Text(widget.item == null ? 'Add Item' : 'Edit Item'),

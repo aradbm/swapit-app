@@ -24,9 +24,4 @@ class ItemCategory {
       'parentcategory': parentid,
     };
   }
-
-  @override
-  String toString() {
-    return 'Category{name: $name, categoryid: $categoryid, parentcategory: $parentid}';
-  }
 }

@@ -1,9 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
-const defualtlatitude = 32.085300;
-const defualtlongitude = 34.781769;
+import '../utilities/constants.dart';
 
 class BackPackItem {
   BackPackItem({

@@ -8,6 +8,7 @@ import '../../../providers/categories_provider.dart';
 import '../../../providers/user_provider.dart';
 import '../../../providers/wishlist_provider.dart';
 import '../../../components/text_form_container.dart';
+import '../../../utilities/constants.dart';
 
 class EditWishList extends ConsumerStatefulWidget {
   const EditWishList({super.key, this.item});
@@ -16,8 +17,6 @@ class EditWishList extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _WishListFormState();
 }
 
-const _itemSizeValues = <String>['None', 'Small', 'Medium', 'Large', 'X-Large'];
-
 class _WishListFormState extends ConsumerState<EditWishList> {
   final _formKey = GlobalKey<FormState>();
   final _itemDescriptionController = TextEditingController();
@@ -25,6 +24,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   final _itemSizeController = TextEditingController();
   final _itemMinPriceController = TextEditingController();
   final _itemMaxPriceController = TextEditingController();
+  Color? selectedColor;
 
   @override
   void initState() {
@@ -36,6 +36,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
       _itemSizeController.text = widget.item!.size ?? 'None';
       _itemMinPriceController.text = widget.item!.minprice.toString();
       _itemMaxPriceController.text = widget.item!.maxprice.toString();
+      selectedColor = widget.item!.color;
     }
   }
 
@@ -77,8 +78,10 @@ class _WishListFormState extends ConsumerState<EditWishList> {
             loading: () => '',
             error: (error, stackTrace) => '',
           ),
-          color: widget.item?.color ?? WishListItem.getRandomColor(),
-          // find in categories list where the name is the same as the text in the controller
+          color: selectedColor ??
+              widget.item?.color ??
+              WishListItem
+                  .getRandomColor(), // find in categories list where the name is the same as the text in the controller
           categoryid: categories.when(
             data: (value) => value
                 .firstWhere((element) =>
@@ -127,6 +130,39 @@ class _WishListFormState extends ConsumerState<EditWishList> {
       }
     }
 
+    Future<void> selectColor(BuildContext context) async {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SizedBox(
+              width: 300,
+              height: 500,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemCount: fixedColors.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedColor = fixedColors[index];
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      color: fixedColors[index],
+                    ),
+                  );
+                },
+              ),
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add or Edit Wish List Item'),
@@ -167,7 +203,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
               ),
               const SizedBox(height: 10),
               ItemsPicker(
-                items: _itemSizeValues,
+                items: itemSizeValues,
                 onChanged: (value) {
                   _itemSizeController.text = value.toString();
                 },
@@ -230,6 +266,23 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                       ),
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  OutlinedButton(
+                      onPressed: () => selectColor(context),
+                      child: const Text('Select Color',
+                          style: TextStyle(color: Colors.black))),
+                  const SizedBox(width: 20),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    color: selectedColor ?? Colors.transparent,
+                    child:
+                        selectedColor == null ? const Text("No color") : null,
+                  )
                 ],
               ),
               ElevatedButton(
