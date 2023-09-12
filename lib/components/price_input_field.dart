@@ -19,7 +19,6 @@ class PriceInput extends StatelessWidget {
         height: containerHeight,
         padding: const EdgeInsets.symmetric(horizontal: padding),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: TextFormField(
@@ -31,9 +30,8 @@ class PriceInput extends StatelessWidget {
               color: Theme.of(context).iconTheme.color,
             ),
           ),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: fontSize,
-            color: Theme.of(context).colorScheme.onPrimary,
           ),
           textInputAction: TextInputAction.next,
           validator: (value) {

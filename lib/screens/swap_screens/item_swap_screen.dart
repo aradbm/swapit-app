@@ -13,21 +13,26 @@ class ItemsSwap extends ConsumerWidget {
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
-      child: AppinioSwiper(
-        swipeOptions: const AppinioSwipeOptions.only(
-          top: false,
-          bottom: false,
-          left: true,
-          right: true,
+      child: RefreshIndicator(
+        onRefresh: () async {
+          ref.read(swapCardsProvider).fetchSwapCards();
+        },
+        child: AppinioSwiper(
+          swipeOptions: const AppinioSwipeOptions.only(
+            top: false,
+            bottom: false,
+            left: true,
+            right: true,
+          ),
+          backgroundCardsCount: 1,
+          cardsCount: swapCards.length,
+          onSwiping: (AppinioSwiperDirection direction) {
+            // print(direction.index); // 1 - left, 2 - right
+          },
+          cardsBuilder: (BuildContext context, int index) {
+            return SwapCardUI(index: index, card: swapCards[index]);
+          },
         ),
-        backgroundCardsCount: 1,
-        cardsCount: swapCards.length,
-        onSwiping: (AppinioSwiperDirection direction) {
-          // print(direction.index); // 1 - left, 2 - right
-        },
-        cardsBuilder: (BuildContext context, int index) {
-          return SwapCardUI(index: index, card: swapCards[index]);
-        },
       ),
     );
   }

@@ -132,7 +132,10 @@ class Api {
   }
 
   static getSwapCards(String uid) async {
-    var url = Uri.parse("$BASE_URL/swapcards/$uid");
+    // var url = Uri.parse("$BASE_URL/swapcards/$uid");
+    var url = Uri.parse("$BASE_URL/swapcards/user_1");
+    print("fetching swap cards from $url");
+    // wait a sec to test loading
     var response = await http.get(url);
     if (response.statusCode == 200) {
       return (jsonDecode(response.body) as List)

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/models/category.dart';
 
-import '../../../providers/categories_provider.dart';
+import '../../../../providers/categories_provider.dart';
 import 'single_category_picker.dart';
 
 class CategoryPicker extends ConsumerStatefulWidget {

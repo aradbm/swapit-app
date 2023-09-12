@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/components/dropdown_menu.dart';
+import 'package:swapit_app/components/pickers/color_picker.dart';
 import 'package:swapit_app/models/backpack_item.dart';
 import 'package:swapit_app/providers/user_provider.dart';
 import '../../../models/category.dart';
@@ -135,37 +136,11 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
       }
     }
 
-    Future<void> selectColor(BuildContext context) async {
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: SizedBox(
-              width: 300,
-              height: 500,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemCount: fixedColors.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedColor = fixedColors[index];
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      color: fixedColors[index],
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
-        },
-      );
+    // function to change the color
+    void changeColor(Color color) {
+      setState(() {
+        selectedColor = color;
+      });
     }
 
     return Scaffold(
@@ -226,27 +201,8 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
                 item: widget.item == null ? null : widget.item!.size,
               ),
               const SizedBox(height: 8),
-
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    TextButton(
-                        onPressed: () => selectColor(context),
-                        child: const Text('Select Color',
-                            style: TextStyle(color: Colors.black))),
-                    const SizedBox(width: 20),
-                    Container(
-                      width: 50,
-                      height: 50,
-                      color: selectedColor ?? Colors.transparent,
-                      child:
-                          selectedColor == null ? const Text("No color") : null,
-                    )
-                  ],
-                ),
-              ),
+              ColorPicker(
+                  selectedColor: selectedColor, onColorChanged: changeColor),
               const SizedBox(height: 8),
               FilledButton(
                 onPressed: updateOrAddItem,

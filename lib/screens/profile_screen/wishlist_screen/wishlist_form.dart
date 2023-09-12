@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/components/dropdown_menu.dart';
 import 'package:swapit_app/models/category.dart';
+import '../../../components/pickers/color_picker.dart';
+import '../../../components/pickers/location_picker.dart';
 import '../../../models/user.dart';
 import '../../../models/wishlist_item.dart';
 import '../../../providers/categories_provider.dart';
@@ -25,6 +27,8 @@ class _WishListFormState extends ConsumerState<EditWishList> {
   final _itemSizeController = TextEditingController();
   final _itemMinPriceController = TextEditingController();
   final _itemMaxPriceController = TextEditingController();
+  final _itemLatituteController = TextEditingController();
+  final _itemLongituteController = TextEditingController();
   Color? selectedColor;
 
   @override
@@ -38,7 +42,16 @@ class _WishListFormState extends ConsumerState<EditWishList> {
       _itemMinPriceController.text = widget.item!.minprice.toString();
       _itemMaxPriceController.text = widget.item!.maxprice.toString();
       selectedColor = widget.item!.color;
+      _itemLatituteController.text = widget.item!.latitude.toString();
+      _itemLongituteController.text = widget.item!.longitude.toString();
     }
+  }
+
+  // function to change the color
+  void changeColor(Color color) {
+    setState(() {
+      selectedColor = color;
+    });
   }
 
   @override
@@ -99,6 +112,8 @@ class _WishListFormState extends ConsumerState<EditWishList> {
           minprice: int.parse(_itemMinPriceController.text),
           maxprice: int.parse(_itemMaxPriceController.text),
           description: _itemDescriptionController.text,
+          latitude: double.parse(_itemLatituteController.text),
+          longitude: double.parse(_itemLongituteController.text),
         );
 
         if (item.uid == '') {
@@ -131,50 +146,18 @@ class _WishListFormState extends ConsumerState<EditWishList> {
       }
     }
 
-    Future<void> selectColor(BuildContext context) async {
-      await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: SizedBox(
-              width: 300,
-              height: 500,
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemCount: fixedColors.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedColor = fixedColors[index];
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      color: fixedColors[index],
-                    ),
-                  );
-                },
-              ),
-            ),
-          );
-        },
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add or Edit Wish List Item'),
         actions: [
-          IconButton(
-            onPressed: () {
-              wishlistProvider.removeItem(widget.item!);
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.delete),
-          ),
+          if (widget.item != null)
+            IconButton(
+              onPressed: () {
+                wishlistProvider.removeItem(widget.item!);
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.delete),
+            ),
         ],
       ),
       body: SingleChildScrollView(
@@ -218,27 +201,17 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                     title: 'Min Price',
                   ),
                   PriceInput(
-                    itemMinPriceController: _itemMaxPriceController,
-                    title: 'Max Price',
-                  ),
+                      itemMinPriceController: _itemMaxPriceController,
+                      title: 'Max Price'),
                 ],
               ),
               const SizedBox(height: 8),
-              Row(
-                children: [
-                  OutlinedButton(
-                      onPressed: () => selectColor(context),
-                      child: const Text('Select Color',
-                          style: TextStyle(color: Colors.black))),
-                  const SizedBox(width: 20),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    color: selectedColor ?? Colors.transparent,
-                    child:
-                        selectedColor == null ? const Text("No color") : null,
-                  )
-                ],
+              ColorPicker(
+                  selectedColor: selectedColor, onColorChanged: changeColor),
+              const SizedBox(height: 10),
+              LocationPicker(
+                itemLatituteController: _itemLatituteController,
+                itemLongituteController: _itemLongituteController,
               ),
               ElevatedButton(
                   onPressed: updateOrAddItem, child: const Text('Submit')),
