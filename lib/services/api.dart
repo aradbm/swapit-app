@@ -35,6 +35,17 @@ class Api {
         .toList();
   }
 
+  static Future<BackPackItem?> getSpecificBackPackItem(String itemid) async {
+    var url = Uri.parse("$BASE_URL/backpacks/item/$itemid");
+    var response = await http.get(url);
+    try {
+      return BackPackItem.fromJson(jsonDecode(response.body));
+    } catch (e) {
+      // print(e);
+      return null;
+    }
+  }
+
   // publish a new backpack item
   static uploadBackPack(BackPackItem item) async {
     var url = Uri.parse("$BASE_URL/backpacks/");
@@ -131,11 +142,10 @@ class Api {
     }
   }
 
+  ////// SwapCard API calls: //////
+
   static getSwapCards(String uid) async {
-    // var url = Uri.parse("$BASE_URL/swapcards/$uid");
-    var url = Uri.parse("$BASE_URL/swapcards/user_1");
-    print("fetching swap cards from $url");
-    // wait a sec to test loading
+    var url = Uri.parse("$BASE_URL/swapcards/$uid");
     var response = await http.get(url);
     if (response.statusCode == 200) {
       return (jsonDecode(response.body) as List)

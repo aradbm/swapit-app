@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/components/dropdown_menu.dart';
 import 'package:swapit_app/components/pickers/color_picker.dart';
 import 'package:swapit_app/models/backpack_item.dart';
+import 'package:swapit_app/providers/swapcards_provider.dart';
 import 'package:swapit_app/providers/user_provider.dart';
+import '../../../components/form_title.dart';
 import '../../../models/category.dart';
 import '../../../models/user.dart';
 import '../../../providers/backpack_provider.dart';
@@ -152,6 +154,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
             IconButton(
               onPressed: () {
                 ref.read(backPackProvider).removeItem(widget.item!);
+                ref.read(swapCardsProvider).fetchSwapCards();
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.delete),
@@ -163,6 +166,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
           key: _formKey,
           child: Column(
             children: [
+              const FormText(text: "Add Item Details"),
               TextFormContainer(
                   itemNameController: _itemTitleController,
                   title: 'Item Title'),
@@ -176,6 +180,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
                 itemNameController: _itemDescriptionController,
                 title: 'Item Description',
               ),
+              const FormText(text: "Pick Category"),
               categories.when(
                 data: (value) => ItemsPicker(
                   items: value.map((e) => e.name).toList(),
@@ -192,7 +197,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
                 loading: () => const CircularProgressIndicator(),
                 error: (error, stackTrace) => const Text('Error'),
               ),
-              const SizedBox(height: 8),
+              const FormText(text: "Pick Category"),
               ItemsPicker(
                 items: itemSizeValues,
                 onChanged: (value) {
@@ -200,10 +205,9 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
                 },
                 item: widget.item == null ? null : widget.item!.size,
               ),
-              const SizedBox(height: 8),
+              const FormText(text: "Pick Color"),
               ColorPicker(
                   selectedColor: selectedColor, onColorChanged: changeColor),
-              const SizedBox(height: 8),
               FilledButton(
                 onPressed: updateOrAddItem,
                 child: Text(widget.item == null ? 'Add Item' : 'Edit Item'),
