@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/models/backpack_item.dart';
 import 'package:swapit_app/models/swap_card.dart';
+import 'package:swapit_app/models/user.dart';
 import 'package:swapit_app/providers/user_provider.dart';
 
 import '../services/api.dart';
@@ -9,14 +10,24 @@ import '../services/api.dart';
 class SwapCardsProvider extends ChangeNotifier {
   final List<SwapCard> _swapCards = [];
   final List<BackPackItem?> _backPackItems = [];
-  String userUID = '';
+  final AsyncValue<AppUser> _userAsyncValue;
 
   List<SwapCard> get swapCards => _swapCards;
   List<BackPackItem?> get backPackItems => _backPackItems;
 
-  Future<void> fetchSwapCards() async {
+  SwapCardsProvider(this._userAsyncValue) {
+    _userAsyncValue.when(
+      data: (user) {
+        fetchSwapCards(user.uid);
+      },
+      loading: () {},
+      error: (err, stack) {},
+    );
+  }
+
+  Future<void> fetchSwapCards(String id) async {
     _swapCards.clear();
-    _swapCards.addAll(await Api.getSwapCards(userUID));
+    _swapCards.addAll(await Api.getSwapCards(id));
 
     await fetchBackPackItems();
     notifyListeners();
@@ -24,10 +35,13 @@ class SwapCardsProvider extends ChangeNotifier {
 
   Future<void> fetchBackPackItems() async {
     Future<BackPackItem?> getCardBPItem(SwapCard card) async {
+      final uid = _userAsyncValue.when(
+        data: (user) => user.uid,
+        loading: () => '',
+        error: (err, stack) => '',
+      );
       return await Api.getSpecificBackPackItem(
-        userUID == card.uidH1
-            ? card.bpItem2.toString()
-            : card.bpItem1.toString(),
+        uid == card.uidH1 ? card.bpItem2.toString() : card.bpItem1.toString(),
       );
     }
 
@@ -38,13 +52,9 @@ class SwapCardsProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  SwapCardsProvider(String id) {
-    userUID = id;
-    fetchSwapCards();
-  }
 }
 
 final swapCardsProvider = ChangeNotifierProvider<SwapCardsProvider>((ref) {
-  return SwapCardsProvider(ref.read(userProvider).requireValue.uid);
+  final user = ref.watch(userProvider);
+  return SwapCardsProvider(user);
 });

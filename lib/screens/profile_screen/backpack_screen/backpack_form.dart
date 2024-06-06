@@ -55,14 +55,16 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
         ref.watch(categoriesProvider);
     final AsyncValue<AppUser> user = ref.watch(userProvider);
 
+    final uid = user.when(
+      data: (user) => user.uid,
+      loading: () => '',
+      error: (err, stack) => '',
+    );
+
     void addRandomItem() {
       final item = BackPackItem(
         itemid: widget.item?.itemid ?? -1,
-        uid: user.when(
-          data: (user) => user.uid,
-          loading: () => '',
-          error: (err, stack) => '',
-        ),
+        uid: uid,
         title: 'Random Item',
         color: BackPackItem.getRandomColor(),
         price: 7,
@@ -154,7 +156,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
             IconButton(
               onPressed: () {
                 ref.read(backPackProvider).removeItem(widget.item!);
-                ref.read(swapCardsProvider).fetchSwapCards();
+                ref.read(swapCardsProvider).fetchSwapCards(uid);
                 Navigator.pop(context);
               },
               icon: const Icon(Icons.delete),
@@ -203,7 +205,7 @@ class _AddBackPackItemState extends ConsumerState<EditBackPackItem> {
                 onChanged: (value) {
                   _itemSizeController.text = value.toString();
                 },
-                item: widget.item == null ? null : widget.item!.size,
+                item: widget.item?.size,
               ),
               const FormText(text: "Pick Color"),
               ColorPicker(

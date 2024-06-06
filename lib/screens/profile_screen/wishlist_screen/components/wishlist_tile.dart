@@ -40,7 +40,7 @@ class WishListTile extends StatelessWidget {
                 onPressed: () {},
                 color: item.color,
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  backgroundColor: WidgetStateProperty.all(Colors.white),
                 ),
                 highlightColor: item.color,
               ),

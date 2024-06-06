@@ -191,7 +191,7 @@ class _WishListFormState extends ConsumerState<EditWishList> {
                 onChanged: (value) {
                   _itemSizeController.text = value.toString();
                 },
-                item: widget.item == null ? null : widget.item!.size,
+                item: widget.item?.size,
               ),
               const SizedBox(height: 10),
               Row(

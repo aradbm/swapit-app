@@ -9,8 +9,8 @@ import '../models/user.dart';
 
 class Api {
   // ignore: constant_identifier_names
-  static const String BASE_URL = "http://127.0.0.1:3000/api";
-  // static const String BASE_URL = "http://10.100.102.7:3000/api";
+  static const String BASE_URL = "http://10.0.2.2:3000/api";
+  // static const String BASE_URL = "http://127.0.0.1:3000/api";
 
   static Future<AppUser> getUser(String uid) async {
     var url = Uri.parse("$BASE_URL/users/$uid");
@@ -28,7 +28,8 @@ class Api {
   // get backpack items for a user with a specific id
   // returns a list of BackPackItem objects
   static getBackPack(String uid) async {
-    var url = Uri.parse("$BASE_URL/backpacks/$uid");
+    print("uid: $uid");
+    var url = Uri.parse("$BASE_URL/backpack/$uid");
     var response = await http.get(url);
     return (jsonDecode(response.body) as List)
         .map((e) => BackPackItem.fromJson(e))

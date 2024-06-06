@@ -2,6 +2,7 @@ import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:swapit_app/models/backpack_item.dart';
+import 'package:swapit_app/providers/user_provider.dart';
 import 'package:swapit_app/screens/swap_screens/card.dart';
 import '../../models/swap_card.dart';
 import '../../providers/swapcards_provider.dart';
@@ -18,12 +19,18 @@ class ItemsSwap extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final swapCards = ref.watch(swapCardsProvider).swapCards;
     final backPackItems = ref.watch(swapCardsProvider).backPackItems;
+    final user = ref.watch(userProvider);
+    final uid = user.when(
+      data: (user) => user.uid,
+      loading: () => '',
+      error: (err, stack) => '',
+    );
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.6,
       child: RefreshIndicator(
         onRefresh: () async {
-          ref.watch(swapCardsProvider).fetchSwapCards();
+          ref.watch(swapCardsProvider).fetchSwapCards(uid);
         },
         child: AppinioSwiper(
           swipeOptions: const AppinioSwipeOptions.only(
@@ -45,7 +52,7 @@ class ItemsSwap extends ConsumerWidget {
             }
           },
           onEnd: () {
-            ref.read(swapCardsProvider).fetchSwapCards();
+            ref.read(swapCardsProvider).fetchSwapCards(uid);
           },
           cardsBuilder: (BuildContext context, int index) {
             return SwapCardUI(
